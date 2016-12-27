@@ -1,0 +1,40 @@
+@font-face {
+	font-family: "latolight";
+	src: url('./webfonts/Lato-Light.woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	font-family: "latolight", Helvetica, sans-serif;
+	font-size: 1.3em;
+	line-height: 1.3em;
+	color: #555555;
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #ccc;
+}
+@media (min-width: 1024px) {
+	body {
+		font-size: 1.4em;
+	}
+}
+
+@media (max-width: 768px) {
+	body {
+		font-size: 1.2em;
+	}
+}
+
+@media (max-width: 640px) {
+	body {
+		font-size: 1.1em;
+	}
+}

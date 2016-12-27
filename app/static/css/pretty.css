@@ -1,0 +1,108 @@
+/* pretty nav */
+#header {
+	display: none;
+}
+
+#pretty_nav {
+    position: absolute;
+    width: 100%;
+    padding-top: 1px;
+    top: 0px;
+    background: linear-gradient( 0deg, rgba(0,0,0, 0), rgba(0,0,0, 0.6));
+    height: 50px;
+    z-index: 1;
+
+}
+
+#pretty_nav a {
+	color: #F1D42D;
+}
+
+#pretty_nav .button {
+    color: #333333;
+    background: #F1D42D;
+    border: 1px solid #F1D42D;
+    font-size: 0.9em;
+    margin: -10px auto 0 auto;
+    padding: 6px 15px;
+    text-align: center;
+    line-height: 37px;
+    -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px;	
+}
+
+#pretty_nav .button:hover {
+	color: #FFFFFF;
+}
+
+#pretty_nav .button:touch {
+	    color: #FFFFFF;
+}
+
+#pretty_nav .linkspace {
+	margin: 0 18px;
+}
+/* pretty */
+#pretty {
+	color: #FFFFFF;
+	background-color: #000000;
+	background-image: url(../img/photo3r.jpg);
+
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-attachment: local;
+
+	background-size: cover; 
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+
+    -webkit-transition: background 0.9s linear;
+    transition: background 0.9s linear;
+    z-index: -1;
+}
+#pretty,
+#tint {
+	height: 640px;
+	width: 100%;
+}
+
+#tint {
+	position: absolute;
+	background-size: local;
+	background: linear-gradient( -90deg, rgba(0,0,0, 0), rgba(0,0,0, 0.6));
+	z-index: 0;
+}
+
+#stuff {
+	position: relative;
+	padding-top: 220px;
+	padding-left: 10%;
+	line-height: 1.6em;
+}
+
+/* get a bigger logo for this page and then code its style here */
+/* https://www.hello.com/incl_/common/css/hero.css */
+
+#pretty_blurb {
+	text-align: left;
+    font-family: 'latolight', Helvetica, sans-serif;
+    font-size: 1.5em;
+    color: #FFFFFF;
+    height: 60px;
+}
+
+#prettybtn {
+    margin: 20px auto;
+    width: 240px;	
+    background-color: #FF895B;
+    color: #000000;
+}
+
+#photodiv .button:hover {
+    background-color: #F0F0F0;
+}
+
+@media (max-width: 768px) {
+	#pretty {
+		height: 660px;
+	}
+}

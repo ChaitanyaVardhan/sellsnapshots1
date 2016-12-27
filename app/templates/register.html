@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta name="viewport" content="width=device-width">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+
+	<title>sellsnapshots :: register</title>
+
+	<link rel="icon" type="image/png" href="https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/favicon.png">
+	<!-- icon from iconfinder.com by Xinh Studio -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+	
+	<style>
+	</style>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+	<script>
+		var nav = [
+			{id:"home", nav:"home", link:"{{ url_for('index') }}"},
+			{id:"about", nav:"about", link:"{{ url_for('about') }}"},
+			{id:"photo", nav:"photos", link:"{{ url_for('photos') }}"},
+			{id:"join", nav:"join", link:"{{ url_for('register') }}"}
+		];
+
+		var img = [
+			{id:"home_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/sellsnapshots.png"},
+			{id:"menu_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/menu.png"}
+		]
+
+		function init() {
+			var home = document.getElementById("home");
+			home.href = nav[0]["link"];
+
+			var home_img = document.getElementById("home_img");
+			home_img.src = img[0]["src"];
+
+			var menu_img = document.getElementById("menu_img");
+			menu_img.src = img[1]["src"];
+		
+		}
+	</script>
+
+	<script>
+		function error(errorstring) {
+			errorElement = document.getElementById("error-label");
+			errorElement.innerHTML = errorstring;
+		}
+
+		function validateForm() {
+			var form = document.forms["signupform"];
+			var firstname = form["firstname"].value;
+			if(firstname == null || firstname == "") {
+				error("Please enter your first name");
+				return false;
+			}
+			var lastname = form["lastname"].value;
+			if (lastname == null || lastname == "") {
+				error("Please enter your last name");
+				return false;
+			}
+			var city = form["city"].value;
+			if (city = null || city == "") {
+				error("Please enter your city");
+				return false;
+			}
+			var country = form["country"].value;
+			if (country == null || country == "") {
+				error("Please enter your country of residence");
+				return false;
+			}
+			var email = form["email"].value;
+			if (email == null || email == "") {
+				error("Please enter your email");
+				return false;
+			}
+			var emailPattern = /^(([^<>()[\])\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			if (!emailPattern.test(email)) {
+				error("Please enter a valid e-mail address");
+				return false;
+			}
+		}
+
+		window.addEventListener("scroll", function() {
+      		if (document.getElementById("menuDIV").style.display == "block") hideMenu();
+    	}, false);
+
+	</script>
+</head>
+<body onLoad="init()">
+<!--begin content -->
+<div id="content">
+
+
+<!-- begin header -->
+	<div id="header">
+		<div id="nav">
+			<script>
+			for (i=1; i<nav.length-1; i++) {
+				document.write("<a id=" + nav[i]["id"] + " href='" + nav[i]["link"] + "' target='_parent'>" + nav[i]["nav"] + 
+					"</a><span class='linkspace'></span>");				
+			}
+			document.write("<span id='" + nav[nav.length-1]["id"] + "' class='button'>" + nav[nav.length-1]["nav"] + "</span>");
+			</script>
+		</div>
+
+		<div id="logo"><a id="home" href="" target="_parent"><img id="home_img" src=""></a></div>
+		<div id="menu"><a href="javascript:parent.showObj('menuDIV')"><img id="menu_img" src=""></a></div>		
+	</div>
+<!-- end header -->
+
+<!-- begin form -->
+	<div id="form_container">
+		{% for message in get_flashed_messages() %}
+		<div id="server-error-label">{{ message }}</div>
+		{% endfor %}
+		
+		<div id="error-label"></div>
+		<div class="form">
+			<form id="signupform" action="/register" method="post" onsubmit="return validateForm()">
+				<div>
+					<div class="field left">
+						<input id="firstname" class="text" type="text" name="firstName" maxlength="25" placeholder="first name" tabindex="1">
+					</div>
+					<div class="field right">
+						<input id="lastname" class="text" type="text" name="lastName" maxlength="25"  placeholder="last name" tabindex="2">
+					</div>
+				</div>
+				<div>
+					<div class="field left">
+						<input id="city" class="text" type="text" name="city" maxlength="25" placeholder="city" tabindex="3">
+					</div>
+					<div class="field right dropdown">
+						<select id="country" name="country" tabindex="4">
+							<option disabled value="" selected>country</option>
+							<option value="IN">India</option>
+						</select>
+					</div>									
+				</div>
+				<div>
+					<div class="field left">
+						<input id="email" class="text" type="email" name="email" maxlength="128"  placeholder="email" tabindex="5">
+					</div>
+				</div>
+				<div id="submit">
+					<input id="submitbutton" class="button" type="submit" value="sign up" tabindex="6">
+				</div>
+			</form>
+		</div>
+	</div>
+<!-- end form -->
+
+
+<!-- footer -->
+	<iframe id="footer" class="frame" scrolling="no" src="{{ url_for('footer') }}"></iframe>
+</div>
+<!--end content -->
+
+<!-- Menu overlay -->
+<div id="menuDIV"><iframe class="frame" src="{{ url_for('menu') }}"></iframe></div>
+</body>
+</html>

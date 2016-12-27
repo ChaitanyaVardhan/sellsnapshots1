@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta name="viewport" content="width=device-width">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+
+	<title>sellsnapshots :: about</title>
+
+	<link rel="icon" type="image/png" href="https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/favicon.png">
+	<!-- icon from iconfinder.com by Xinh Studio -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+</head>
+<body onLoad="setHeader('about')">
+
+<!-- begin content -->
+<div id="content">
+
+<!-- header -->
+	<iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
+
+<div id="main">
+	<h1>About Us</h1>
+	<p><strong>sellsnapshtos</strong> is a platform built to sell high definition images. It allows professionals and amatuers to upload 
+		high definition images that they own and have copywright over. The platform displays the scaled-down version of these images. Users
+		can click on the image to view a bigger version. When the user buys the image, a link is sent to the user's email inbox to download 
+		the high definition version of the image.
+		<i><a href="./register.html">contact us</a> to upload your images.</i>
+	</p>
+</div>
+
+<!-- footer -->
+	<iframe id="footer" class="frame" scrolling="no" src="{{ url_for('footer') }}"></iframe>
+</div>
+<!-- end content -->
+
+<!-- Menu overlay -->
+<div id="menuDIV"><iframe class="frame" src="{{ url_for('menu') }}"></iframe></div>
+
+</body>
+
+</html>	

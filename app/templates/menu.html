@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>sellsnapshots</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+	<style>
+		#container {
+			margin: 0 auto;
+			margin-top: 70px;
+			text-align: center;
+		}
+
+		#container p {
+			border-bottom: 1px solid #000000;
+			height: 40px;
+		}
+
+		.button {
+			margin: -10px auto 0 auto;
+			width: 120px;
+		}
+	</style>
+	<script>
+	var nav = [
+		{id:"home", nav:"home", link:"{{ url_for('index') }}"},
+		{id:"about", nav:"about", link:"{{ url_for('about') }}"},
+		{id:"photo", nav:"photos", link:"{{ url_for('photos') }}"},
+		{id:"join", nav:"join", link:"{{ url_for('register') }}"}
+	]
+
+	var img = [
+		{id:"home_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/sellsnapshots.png"},
+		{id:"menu_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/x.png"}
+	]
+
+	function init() {
+		var home = document.getElementById("home");
+		home.href = nav[0]["link"];
+
+		var home_img = document.getElementById("home_img");
+		home_img.src = img[0]["src"];
+
+		var close_img = document.getElementById("close_img");
+		close_img.src = img[1]["src"];
+	}
+	</script>
+</head>
+<body onLoad="init()">
+<div id="content">
+	<div id="container">
+		<script>
+		for (i=1; i<nav.length-1; i++) {
+			document.write("<p><a id=" + nav[i]["id"] + " href='" + nav[i]["link"] + "' target='_parent'>" + nav[i]["nav"] + 
+				"</a></p>");				
+		}
+		document.write("<a id=" + nav[nav.length-1]["id"] + " href=" + nav[nav.length-1]["link"] + 
+			" target='_parent'><div class='button'>" + nav[nav.length-1]["nav"] + "</div></a>");
+		</script>		
+	</div>
+	<div id="logo"><a id="home" href="" target="_parent"><img id="home_img" src=""></a></div>
+	<div id="close"><a href="javascript:parent.hideObj('menuDIV')"><img id="close_img" src=""></a></div>
+
+</div>
+</body>
+</html>

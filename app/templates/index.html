@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+
+	<title>sellsnapshots</title>
+
+	<link rel="icon" type="image/png" href="https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/favicon.png">
+	<!-- icon from iconfinder.com by Xinh Studio -->
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/pretty.css') }}">
+
+	<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+</head>
+<body onLoad="init(); loadPhotos('featured', 7)">
+<div id="content">
+	<div id="pretty">
+		<div id="tint"></div>
+		<div id="stuff">
+			<div id="pretty_logo"><img id="pretty_logo_img" src="" alt="sellsnapshots"></div>
+			<div id="pretty_blurb"></div>
+		</div>
+	</div>
+
+	<div id="pretty_nav">
+		<div id="nav">
+			<a href="{{ url_for('about') }}">About</a><span class="linkspace"></span>
+			<a href="{{ url_for('register') }}">Join</a><span class="linkspace"></span>
+			<a href="{{ url_for('photos') }}"><span class="button">Photos</span></a>
+		</div>
+		<div id="menu"><a href="javascript:parent.showObj('menuDIV')"><img id="menu_img" src=""></a></div>
+	</div>
+
+	<div id="photodiv">
+		<div id="featured"></div>
+		<a href="{{url_for('photos')}}"><div id="prettybtn" class="button">Show More</div></a>
+	</div>
+
+	<iframe id="footer" class="frame" scrolling="no" src="{{ url_for('footer') }}"></iframe>
+</div>
+<!-- End container -->
+
+<!-- header overlay -->
+<iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
+<!-- menu overlay-->
+<div id="menuDIV"><iframe class="frame" src="{{ url_for('menu') }}"></iframe></div>
+</body>
+</html>

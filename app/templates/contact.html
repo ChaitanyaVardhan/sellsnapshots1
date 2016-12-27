@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta name="viewport" content="width=device-width">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+
+	<title>sellsnapshots :: contact</title>
+
+	<link rel="icon" type="image/png" href="https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/favicon.png">
+	<!-- icon from iconfinder.com by Xinh Studio -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+	<style>
+	.twocol {
+		width: 45%;
+		float: left;
+		margin-bottom: 2%;
+		margin-right: 25px;
+	}
+
+	.h2_title {
+		font-family: "latomedium", Helvetica, sans-serif;
+      	font-size: 1.0em;
+      	color: #666666;
+
+	}
+
+	@media (max-width: 768px) {
+		.twocol {
+			width: 100%;
+		}
+	}
+	</style>
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</head>
+<body>
+
+<!-- begin content -->
+<div id="content">
+
+<!-- header -->
+	<iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
+<div id="main">
+	<h1>Need to reach us?</h1>
+	<br>
+	<p class="twocol"><span class="h2_title">Email</span><br><a href="mailto:sellsnapshots@gmail.com">sellsnapshots@gmail.com</a></p>
+	<p class="twocol"><span class="h2_title">Phone</span><br>91-954-545-1849</p>
+</div>
+
+
+	<!-- footer -->
+	<iframe id="footer" class="frame" scrolling="no" src="{{ url_for('footer') }}"></iframe>
+</div>
+<!-- end content -->
+
+<!-- Menu overlay -->
+<div id="menuDIV"><iframe class="frame" src="{{ url_for('menu') }}"></iframe></div>
+
+</body>
+
+</html>	

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<title>sellsnapshots</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+	<style>
+		body {
+			background: #fafafa;
+		}
+	</style>
+	<script>
+		var nav = [
+			{name:"contact", url:"{{ url_for('contact') }}"},
+		];
+
+		var social = [
+		{name:"facebook", id:"facebook", href:"https://www.facebook.com/sellsnapshots/", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/facebook.png"},
+		{name:"twitter", id:"twitter", href:"https://twitter.com/sellsnapshots", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/twitter.png"},
+		{name:"instagram", id:"instagram", href:"https://www.instagram.com/sellsnapshots/", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/instagram.png"}
+		];
+	</script>
+</head>
+<body>
+<div id="footer">
+	<div class="links">
+		<script>
+			for (i=0; i<nav.length-1; i++) {
+				document.write("<a href='" + nav[i]["url"] + "' target='_parent'>" + nav[i]["name"] + 
+					"</a><span class='linkspace'></span>");
+			};
+			document.write("<a href='" + nav[nav.length-1]["url"] + "' target='_parent'>" + nav[nav.length-1]["name"] +
+				"</a>");
+		</script>
+	</div>
+
+	<div id="social">
+		<script>
+			for(i=0; i<social.length; i++) {
+				document.write("<a id='" + social[i]["id"] + "' href='" + social[i]["href"] + 
+					"' target='_blank'><img class='icon' src='" + social[i]["src"] + "'></a>");
+			}
+		</script>
+	</div>
+
+	<div class="copyright">&copy; 2016 sellsnapshots.com</div>
+</div>
+</body>
+</html>

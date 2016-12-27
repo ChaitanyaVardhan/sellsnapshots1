@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+	<meta charset="utf-8">
+	<title>sellsnapshots</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+	<style>
+		body {
+			background: #FFFFFF;
+		}
+		#about, #photo {
+			padding-bottom: 10px;
+			border-bottom: inset 4px #FFFFFF;
+		}
+
+		.button {
+			margin: -10px auto 0 auto;
+			padding: 8px 16px;
+		}
+	</style>
+	<script>
+	var nav = [
+		{id:"home", nav:"home", link:"{{ url_for('index') }}"},
+		{id:"about", nav:"about", link:"{{ url_for('about') }}"},
+		{id:"photo", nav:"photos", link:"{{ url_for('photos') }}"},
+		{id:"join", nav:"join", link:"{{ url_for('register') }}"}
+	]
+
+	var img = [
+		{id:"home_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/sellsnapshots.png"},
+		{id:"menu_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/menu.png"}
+	]
+	
+	function init() {
+		var home = document.getElementById("home");
+		home.href = nav[0]["link"];
+
+		var home_img = document.getElementById("home_img");
+		home_img.src = img[0]["src"];
+
+		var menu_img = document.getElementById("menu_img");
+		menu_img.src = img[1]["src"];
+	}
+	</script>
+</head>
+<body onLoad="init()">
+
+<!-- begin content -->
+<div id="content">
+	<div id="nav">
+		<script>
+		for (i=1; i<nav.length-1; i++) {
+			document.write("<a id=" + nav[i]["id"] + " href='" + nav[i]["link"] + "' target='_parent'>" + nav[i]["nav"] + 
+				"</a><span class='linkspace'></span>");				
+		}
+		document.write("<a id=" + nav[nav.length-1]["id"] + " href=" + nav[nav.length-1]["link"] + 
+			" target='_parent'><span class='button'>" + nav[nav.length-1]["nav"] + "</span></a>");
+		</script>
+	</div>
+
+	<div id="logo"><a id="home" href="" target="_parent"><img id="home_img" src=""></a></div>
+	<div id="menu"><a href="javascript:parent.showObj('menuDIV')"><img id="menu_img" src=""></a></div>
+</div>
+<!-- end content -->
+</body>
+</html>

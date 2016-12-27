@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+
+	<title>sellsnapshots :: photos</title>
+
+	<link rel="icon" type="image/png" href="https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/favicon.png">
+	<!-- icon from iconfinder.com by Xinh Studio -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+	<style>
+		#photodiv {
+			margin-top: 50px;
+		}
+	</style>
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+	
+	<script>
+		var img = [
+			{id:"badge_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/badge.png"}
+		]
+		function init() {
+			var badge_img = document.getElementById("badge_img");
+			badge_img.src = img[0]["src"];
+		}
+	</script>
+</head>
+
+
+<body onLoad="setHeader('photo'); loadPhotos('photos'); init()">
+
+<!-- Begin content -->
+<div id="content">
+
+<!-- header -->
+	<iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
+
+	<div id="photodiv">
+		<img id="badge_img" src="" alt="sellsnapshots">
+		<div id="photos"></div>
+	</div>
+
+<!-- footer -->
+	<iframe id="footer" class="frame" scrolling="no" src="{{ url_for('footer') }}"></iframe>
+
+</div>
+<!-- end content -->
+
+<!-- Menu overlay -->
+<div id="menuDIV"><iframe class="frame" src="{{ url_for('menu') }}"></iframe></div>
+
+</body>
+</html>
