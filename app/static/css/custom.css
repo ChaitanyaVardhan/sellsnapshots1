@@ -98,6 +98,11 @@
 	padding: 30px 5%;
 }
 
+#badge_img {
+	width: 120px;
+	height: 120px;
+}
+
 #footer {
 	text-align: center;
 	padding-bottom: 5px;

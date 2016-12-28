@@ -21,6 +21,12 @@ a {
 a:hover {
 	color: #ccc;
 }
+
+.title {
+	font-family: "latomedium", Helvetica, sans-serif;
+	font-size: 1.3em;
+}
+
 @media (min-width: 1024px) {
 	body {
 		font-size: 1.4em;

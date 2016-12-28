@@ -3,10 +3,8 @@ var cnt = 5;
 function loadPics() {
 	for(i=1; i<=cnt; i++) {
 		pics[i] = new Image();
-		pics[i].src = "./img/photo" + i + "r.jpg";
-
-	};
-
+		pics[i].src = "https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/bg" + i + "_sz.jpg"
+	}
 }
 
 var idx = 2;
@@ -36,7 +34,7 @@ function cycleItems(func, interval) {
 
 function getAssets() {
 	var obj1 = document.getElementById("pretty_logo_img");
-	obj1.src = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/sellsnapshots.png';
+	obj1.src = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/sellsnapshots_front.png';
 
 	var obj2 = document.getElementById("menu_img");
 	obj2.src = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/menu.png'

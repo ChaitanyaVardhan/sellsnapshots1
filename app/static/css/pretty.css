@@ -1,4 +1,5 @@
 /* pretty nav */
+
 #header {
 	display: none;
 }
@@ -41,11 +42,16 @@
 #pretty_nav .linkspace {
 	margin: 0 18px;
 }
+
+#menu_img {
+    background-color: #F1D42D;
+}
+
 /* pretty */
 #pretty {
 	color: #FFFFFF;
 	background-color: #000000;
-	background-image: url(../img/photo3r.jpg);
+	background-image: url('https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/bg1_sz.jpg');
 
 	background-repeat: no-repeat;
 	background-position: center top;
@@ -61,7 +67,7 @@
 }
 #pretty,
 #tint {
-	height: 640px;
+	height: 680px;
 	width: 100%;
 }
 
@@ -78,9 +84,6 @@
 	padding-left: 10%;
 	line-height: 1.6em;
 }
-
-/* get a bigger logo for this page and then code its style here */
-/* https://www.hello.com/incl_/common/css/hero.css */
 
 #pretty_blurb {
 	text-align: left;
@@ -102,7 +105,7 @@
 }
 
 @media (max-width: 768px) {
-	#pretty {
+	#pretty, #tint {
 		height: 660px;
 	}
 }
