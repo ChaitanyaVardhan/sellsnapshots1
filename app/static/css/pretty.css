@@ -85,6 +85,18 @@
 	line-height: 1.6em;
 }
 
+#pretty_logo {
+    width: 40%;
+    margin-left: -5px;
+    margin-bottom: 15px;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+#pretty_logo img {
+    width: 100%;
+}
+
 #pretty_blurb {
 	text-align: left;
     font-family: 'latolight', Helvetica, sans-serif;
@@ -108,4 +120,22 @@
 	#pretty, #tint {
 		height: 660px;
 	}
+
+    #stuff {
+        padding-top: 210px;
+        padding-left: 0;
+        margin: 0 auto;
+    }
+
+    #pretty_blurb {
+        margin: 0 5%;
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    #pretty_logo {
+        margin: 0 auto;
+        min-width: 200px;
+        margin-bottom: 15px;
+    }
 }
