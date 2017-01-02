@@ -10,9 +10,8 @@ def send_async_email(app, msg):
 		mail.send(msg)
 
 def send_email(to, subject, template, user):
-	print(to)
 	msg = Message(MAIL_SUBJECT_PREFIX + subject, sender=MAIL_SENDER, recipients=[to])
-	msg.body = render_template(template + '.txt', user=user)
+#	msg.body = render_template(template + '.txt', user=user)
 	msg.html = render_template(template + '.html', user=user)
 	thr = Thread(target=send_async_email, args=[app, msg])
 	thr.start()
