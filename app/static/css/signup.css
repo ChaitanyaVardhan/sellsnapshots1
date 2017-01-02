@@ -21,6 +21,10 @@
   text-align: center;
 }
 
+#server-error-label {
+  height: 100px;
+}
+
 #submit {
   clear: both;
   text-align: center;

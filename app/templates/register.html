@@ -49,8 +49,8 @@
 			errorElement = document.getElementById("error-label");
 			errorServer = document.getElementById("server-error-label")
 			errorElement.innerHTML = errorstring;
-			errorServer.innerHTML = '';
-		}
+			if (errorServer !== null) errorServer.style.display = 'none'
+		}	
 
 		function validateForm() {
 			var form = document.forms["signupform"];
@@ -65,7 +65,7 @@
 				return false;
 			}
 			var city = form["city"].value;
-			if (city = null || city == "") {
+			if (city == null || city == "") {
 				error("Please enter your city");
 				return false;
 			}
