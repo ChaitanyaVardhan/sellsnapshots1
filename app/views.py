@@ -1,8 +1,12 @@
 from flask import Flask, render_template, redirect, url_for, request,\
 	flash, session
 
+from app import app, db
 
-from app import app
+from .models import User
+
+from .emails import send_email
+
 
 @app.route('/')
 def index():
@@ -25,7 +29,17 @@ def register():
 	city = request.form['city']
 	country = request.form['country']
 	email = request.form['email']
-	flash('Thank you for your interest in sellsnapshots. Your information has been registered with us')
+	user = User.query.filter_by(email=email).first()
+	if user is None:
+		user = User(firstname = first_name, lastname = last_name, city = city, country = country, email = email)
+		db.session.add(user)
+		db.session.commit()
+		send_email(user.email, 'Thank You', 'thank', user)
+		flash('Thank you %s %s for your interest in sellsnapshots. Your information has been registered with us'\
+		 % ((user.firstname), (user.lastname)))
+	else:
+		flash('Thank you %s %s for your interest in sellsnapshots. Your information has already been registered with us'\
+		 % ((user.firstname), (user.lastname)))
 	return render_template('register.html')
 
 
@@ -52,6 +66,3 @@ def about():
 @app.route('/contact')
 def contact():
 	return render_template('contact.html')
-
-
-

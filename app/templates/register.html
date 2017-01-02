@@ -47,7 +47,9 @@
 	<script>
 		function error(errorstring) {
 			errorElement = document.getElementById("error-label");
+			errorServer = document.getElementById("server-error-label")
 			errorElement.innerHTML = errorstring;
+			errorServer.innerHTML = '';
 		}
 
 		function validateForm() {
