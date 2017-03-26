@@ -1,3 +1,4 @@
+/*
 var photolist = [
 ["photo6.jpg"],
 ["photo7.jpg"],
@@ -13,7 +14,22 @@ var photolist = [
 ["photo17.jpg"],
 ["photo18.jpg"],
 ];
-
+*/
+var photolist = [
+["photo6"],
+["photo7"],
+["photo8"],
+["photo9"],
+["photo10"],
+["photo11"],
+["photo12"],
+["photo13"],
+["photo14"],
+["photo15"],
+["photo16"],
+["photo17"],
+["photo18"],
+];
 var s3Path = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/preview/';
 
 function loadPhotos(id, cnt) {
@@ -22,7 +38,7 @@ function loadPhotos(id, cnt) {
 
 	photos = ""
 	for (i=0; i<cnt; i++) {
-		photos += "<div class='photo'><img src='" + s3Path + photolist[i][0] + "'></div>"		
+		photos += "<div class='photo'><img id='" + photolist[i][0] + "' src='" + s3Path + photolist[i][0] + ".jpg" + "'></img></div>"		
 	}
 
 	div.innerHTML = photos;
@@ -50,3 +66,5 @@ function showObj(id) {
 window.addEventListener("scroll", function() {
   if (document.getElementById("menuDIV").style.display == "block") hideMenu();
 }, false);
+
+

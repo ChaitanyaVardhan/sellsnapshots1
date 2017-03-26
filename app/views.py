@@ -66,3 +66,9 @@ def about():
 @app.route('/contact')
 def contact():
 	return render_template('contact.html')
+
+@app.route('/buy/<photo_id>')
+def buy(photo_id):
+	s3Path = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/preview/'
+	path = s3Path + photo_id + '.jpg'
+	return render_template('image.html', path=path)

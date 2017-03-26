@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<meta name="Author" content="">
+	<meta name="Author" content="Sell Snap Shots">
 	<meta name="Keywords" content="">
-	<meta name="Description" content="">
+	<meta name="Description" content="SellSnapShots is a platform that allows anybody to buy and sell high definition images">
 
 	<title>sellsnapshots :: photos</title>
 
@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/image.css') }}">	
 
 	<style>
 		#photodiv {
@@ -22,7 +23,12 @@
 	</style>
 
 	<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
-	
+
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+			integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			crossorigin="anonymous">
+	</script>
+
 	<script>
 		var img = [
 			{id:"badge_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/badge.png"}
@@ -73,6 +79,18 @@
 
 <!-- Menu overlay -->
 <div id="menuDIV"><iframe class="frame" src="{{ url_for('menu') }}"></iframe></div>
+
+<!-- image overlay-->
+<div id="imageDIV">
+	<div id="img_container">
+		<div id="img_full"><img id="img1" src=""></div>
+		<div id="info">
+			<a href=""><div id="prettybtn" class="button">Buy</div></a>
+		</div>
+	</div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/image.js') }}">
 
 
 <script>

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<meta name="Author" content="">
+	<meta name="Author" content="Sell Snap Shots">
 	<meta name="Keywords" content="">
-	<meta name="Description" content="">
+	<meta name="Description" content="SellSnapShots is a platform that allows anybody to buy and sell high definition images">
 
 	<title>sellsnapshots</title>
 
@@ -16,10 +16,15 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/pretty.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/image.css') }}">
 
 	<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+			integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			crossorigin="anonymous">
+	</script>
 
 	<script type="text/javascript">
 
@@ -53,7 +58,7 @@
 			<a href="{{ url_for('register') }}">Join</a><span class="linkspace"></span>
 			<a href="{{ url_for('photos') }}"><span class="button">Photos</span></a>
 		</div>
-		<div id="menu"><a href="javascript:parent.showObj('menuDIV')"><img id="menu_img" src=""></a></div>
+		<div id="menu"><a href="javascript:parent.showObj('menuDIV')"><img id="menu_img" src="" alt="menu"></a></div>
 	</div>
 
 	<div id="photodiv">
@@ -71,6 +76,20 @@
 <!-- menu overlay-->
 <div id="menuDIV"><iframe class="frame" src="{{ url_for('menu') }}"></iframe></div>
 
+
+
+
+<!-- image overlay-->
+<div id="imageDIV">
+	<div id="img_container">
+		<div id="img_full"><img id="img1" src=""></div>
+		<div id="info">
+			<a href=""><div id="prettybtn" class="button">Buy</div></a>
+		</div>
+	</div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/image.js') }}">
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
