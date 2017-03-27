@@ -38,6 +38,9 @@ function getAssets() {
 
 	var obj2 = document.getElementById("menu_img");
 	obj2.src = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/menu.png'
+
+	var obj3 = document.getElementById("img_close");
+	obj3.src = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/x.png'
 }
 
 function init() {
