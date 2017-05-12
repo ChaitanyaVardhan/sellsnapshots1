@@ -22,3 +22,15 @@ MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 MAIL_SENDER = 'admin@sellsnapshots.com'
 MAIL_SUBJECT_PREFIX = '[SELL SNAP SHOTS] '
+
+# Oauth
+OAUTH_CREDENTIALS = {
+    'facebook': {
+        'id': '397306290648080',
+        'secret': '7957401ef062799bb3715ace9538e928'
+    },
+    'twitter': {
+        'id': 'j6seBhPFFFJcMxf1ZoVB5VvZB',
+        'secret': 'CedREegCE0GA5bje1EXxqvCFjZIdBNlK9eg2gBAFPL6xFUKdLP'
+    }
+}

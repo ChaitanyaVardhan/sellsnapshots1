@@ -19,6 +19,10 @@
 	color: #F1D42D;
 }
 
+#pretty_nav a:hover {
+    color: #FFF;
+}
+
 #pretty_nav .button {
     color: #333333;
     background: #F1D42D;

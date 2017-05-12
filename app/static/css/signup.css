@@ -4,13 +4,22 @@
 	background-color: #DDD;
 }
 
+#signup_top {
+  text-align: center;
+  margin-top: 50px;
+  padding-top: 20px;
+}
+
+#instructions {
+  margin: 0 auto;
+  width: 90%;
+  color: #000000;
+}
+
 #form_container {
-	margin-top: 100px;
- 	min-height: 420px;	
-  	width: 100%;
-  	max-width: 450px;
-  	margin-left: auto;
-  	margin-right: auto;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 450px;
 }
 
 #error-label, #server-error-label {
@@ -52,31 +61,28 @@ form .field {
 }
 
 form .dropdown {
-  background: #FFFFFF;
-  -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px;
-  -webkit-appearance: none;
-  padding: 4px 2px 4px 0px;
-  height: 36px;
+  background: #f2f2f2;
+  border-radius: 0px;
+  padding: 2px 2px 4px 0px;
+  height: 32px;
   width: 218px;
 }
 
 form .dropdown select {
   width: 215px;
   overflow: hidden;
-  background: #FFF;
-  border: 1px solid #a0a0a0;
+  background: #f2f2f2;
+  border: 0;
   font-size: 16px;
   color: #000;
-  height: 100%;
 }
 
 form input.text {
-  background: #FFFFFF;
+  background: #f2f2f2;
   padding: 4px 10px;
   width: 200px;
   font-size: 16px;
   height: 30px;
-  border: 1px solid #a0a0a0;
   color: #000;
 }
 
