@@ -21,7 +21,7 @@
 		}
 
 		.button {
-			margin: -10px auto 0 auto;
+			margin: -10px auto 20px auto;
 			width: 120px;
 		}
 	</style>
@@ -30,7 +30,14 @@
 		{id:"home", nav:"home", link:"{{ url_for('index') }}"},
 		{id:"about", nav:"about", link:"{{ url_for('about') }}"},
 		{id:"photo", nav:"photos", link:"{{ url_for('photos') }}"},
-		{id:"join", nav:"join", link:"{{ url_for('register') }}"}
+		{id:"join", nav:"Sign up", link:"{{ url_for('register') }}"},
+		{id:"login", nav:"Log in", link:"javascript:parent.showObj('loginDIV')"}
+	]
+
+	var nav_auth = [
+		{id:"profile", nav:"profile", link:"{{ url_for('user') }}"},
+		{id:"photo", nav:"photos", link:"{{ url_for('photos') }}"},
+		{id:"logout", nav:"Log out", link:"{{ url_for('logout') }}"}	
 	]
 
 	var img = [
@@ -53,18 +60,28 @@
 <body onLoad="init()">
 <div id="content">
 	<div id="container">
+		{% if current_user.is_authenticated %}
 		<script>
-		for (i=1; i<nav.length-1; i++) {
+		for (i=0; i<nav_auth.length; i++) {
+			document.write("<p><a id=" + nav_auth[i]["id"] + " href='" + nav_auth[i]["link"] + "' target='_parent'>" + nav_auth[i]["nav"] + 
+				"</a></p>");				
+		}
+		</script>
+		{% else %}
+		<script>
+		for (i=1; i<nav.length-2; i++) {
 			document.write("<p><a id=" + nav[i]["id"] + " href='" + nav[i]["link"] + "' target='_parent'>" + nav[i]["nav"] + 
 				"</a></p>");				
 		}
+		document.write("<a id=" + nav[nav.length-2]["id"] + " href=" + nav[nav.length-2]["link"] + 
+			" target='_parent'><div class='button'>" + nav[nav.length-2]["nav"] + "</div></a>");
 		document.write("<a id=" + nav[nav.length-1]["id"] + " href=" + nav[nav.length-1]["link"] + 
 			" target='_parent'><div class='button'>" + nav[nav.length-1]["nav"] + "</div></a>");
-		</script>		
+		</script>
+		{% endif %}		
 	</div>
 	<div id="logo"><a id="home" href="" target="_parent"><img id="home_img" src=""></a></div>
 	<div id="close"><a href="javascript:parent.hideObj('menuDIV')"><img id="close_img" src=""></a></div>
-
 </div>
 </body>
 </html>
