@@ -10,9 +10,9 @@ function showImage(e) {
 	var t1 = document.getElementById('imageDIV');
 	var t2 = t1.getElementsByTagName('IMG')[1];
 	t2.src = src;
-	var t3 = t1.getElementsByTagName('a')[0];
-	var href = t3.getAttribute('href');
-	t3.href = '/buy/' + imageId;
+//	var t3 = t1.getElementsByTagName('a')[0];
+//	var href = t3.getAttribute('href');
+//	t3.href = '/buy/' + imageId;
 	showObj('imageDIV');
 }
 

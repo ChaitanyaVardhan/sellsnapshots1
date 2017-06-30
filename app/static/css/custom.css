@@ -178,6 +178,11 @@ input[type="submit"] {
 	padding: 5px;
 	top: 5px;
 	right: 5px;
+        opacity: 0.1;
+}
+
+#login_close:hover {
+        opacity: 1;
 }
 
 #container {
