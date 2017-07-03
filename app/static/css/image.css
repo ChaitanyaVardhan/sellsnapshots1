@@ -7,7 +7,9 @@
 	background-color: rgba(0, 0, 0, 0.8);
 	color: #FFF;
 }
-
+#img_wrap {
+        position: relative;
+}
 #img_container {
 	position: relative; 
 	background: #FFF;
@@ -53,9 +55,43 @@
 	top: 0; left: 0; bottom: 0; right: 0;
 }
 
+#nav_left_arrow_wrap {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        top: 50%;
+        left: 1%;       
+        z-index: 2;
+        opacity: 0.5;
+        cursor: pointer;
+}
+
+#nav_right_arrow_wrap {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        top: 50%;
+        right: 26%;
+        z-index: 2;
+        opacity: 0.5;
+	cursor: pointer;
+}
+
+#nav_left_arrow_wrap:hover {
+        opacity: 1;
+}
+
+#nav_right_arrow_wrap:hover {
+        opacity: 1;
+}
+
+#nav_left_arrow {
+/*        background: #FFF; */
+}
+
 #info {
 	display: inline;
-	width: 20%;
+	width: 25%;
 	height: 100%;
 	float: right;
 	position: relative;
@@ -106,4 +142,11 @@
 	#img_close {
 		background-color: #F1D42D
 	}
+        #nav_left_arrow_wrap {
+                top: 40%;
+        }
+        #nav_right_arrow_wrap {
+                top: 40%;
+                right: 2px;
+        }
 }
