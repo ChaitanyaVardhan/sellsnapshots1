@@ -38,7 +38,7 @@ function loadPhotos(id, cnt) {
 
 	photos = ""
 	for (i=0; i<cnt; i++) {
-		photos += "<div class='photo'><img id='" + photolist[i][0] + "' src='" + s3Path + photolist[i][0] + ".jpg" + "'></img></div>"		
+		photos += "<div class='photo'><img id='" + photolist[i][0] + "' src='" + s3Path + photolist[i][0] + ".jpg" + "'></img><input type='hidden' class='img_idx' name='img_idx' value=''></div>";		
 	}
 
 	div.innerHTML = photos;
