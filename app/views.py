@@ -254,5 +254,5 @@ def logout():
 
 @app.route('/api/v1/photos')
 def api_v1_photos():
-    photolist=['photo1', 'photo2']
+    photolist=['photo6', 'photo7',  'photo8', 'photo9', 'photo10', 'photo11', 'photo12', 'photo13', 'photo14', 'photo15', 'photo16', 'photo17', 'photo18']
     return json.dumps(photolist)
