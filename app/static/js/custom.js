@@ -15,6 +15,14 @@ var photolist = [
 ["photo18.jpg"],
 ];
 */
+$.ajax({
+    url: 'api/v1/photos',
+    dataType: 'json',
+})
+    .done(function(data) {
+        console.log("data:" + data[0] + data[1]);
+    });
+
 var photolist = [
 ["photo6"],
 ["photo7"],

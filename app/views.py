@@ -13,6 +13,8 @@ from .forms import ChangePasswordForm, PasswordResetRequestForm, PasswordResetFo
 
 from oauth import OAuthSignIn
 
+import json
+
 @app.before_request
 def before_request():
 	if current_user.is_authenticated \
@@ -249,3 +251,8 @@ def secret():
 def logout():
 	logout_user()
 	return redirect(url_for('index'))
+
+@app.route('/api/v1/photos')
+def api_v1_photos():
+    photolist=['photo1', 'photo2']
+    return json.dumps(photolist)
