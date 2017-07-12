@@ -10,7 +10,7 @@ $.ajax({
         }
     });
 
-var s3Path = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/preview/';
+//var s3Path = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/preview/';
 
 function loadPhotos(id, cnt) {
 	cnt = (!cnt) ? photolist.length : cnt;
@@ -18,7 +18,7 @@ function loadPhotos(id, cnt) {
 
 	photos = ""
 	for (i=0; i<cnt; i++) {
-		photos += "<div class='photo'><img id='" + photolist[i] + "' src='" + s3Path + photolist[i] + ".jpg" + "'></img><input type='hidden' class='img_idx' name='img_idx' value=''></div>";		
+		photos += "<div class='photo'><img id='" + photolist[i] + "' src='" +  photolist[i].image_url + "'></img><input type='hidden' class='img_idx' name='img_idx' value=''></div>";		
 	}
 
 	div.innerHTML = photos;

@@ -13,7 +13,11 @@ from .forms import ChangePasswordForm, PasswordResetRequestForm, PasswordResetFo
 
 from oauth import OAuthSignIn
 
+from mlab import read_from_mlab
+
 import json
+
+CACHE = {}
 
 @app.before_request
 def before_request():
@@ -254,5 +258,11 @@ def logout():
 
 @app.route('/api/v1/photos')
 def api_v1_photos():
-    photolist=['photo6', 'photo7',  'photo8', 'photo9', 'photo10', 'photo11', 'photo12', 'photo13', 'photo14', 'photo15', 'photo16', 'photo17', 'photo18']
-    return json.dumps(photolist)
+    key = 'FRONT'
+    if key in CACHE:
+        images = CACHE[key]
+    else:
+        images, status_code = read_from_mlab()
+        CACHE[key] = images
+
+    return json.dumps(images)

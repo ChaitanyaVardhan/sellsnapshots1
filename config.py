@@ -34,3 +34,6 @@ OAUTH_CREDENTIALS = {
         'secret': 'CedREegCE0GA5bje1EXxqvCFjZIdBNlK9eg2gBAFPL6xFUKdLP'
     }
 }
+
+#Mlab
+MLAB_API_KEY = os.environ.get('MLAB_API_KEY')
