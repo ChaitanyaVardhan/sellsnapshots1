@@ -1,28 +1,42 @@
-var photolist = [];
+var imageList = [];
 
-$.ajax({
-    url: 'api/v1/photos',
-    dataType: 'json',
-})
-    .done(function(data) {
+function getImageList() {
+    return $.ajax({
+        url: 'api/v1/photos',
+        dataType: 'json',
+    })
+}
+
+var buildImageList = getImageList().done(function(data) {
+        var dfd = $.Deferred();
+
         for (i=0; i<data.length; i++) {
-            photolist[i] = data[i];
+            imageList[i] = data[i];
         }
+
+        dfd.resolve;
+        return dfd.promise();
     });
 
 //var s3Path = 'https://s3.ap-south-1.amazonaws.com/sellsnapshots/preview/';
 
-function loadPhotos(id, cnt) {
-	cnt = (!cnt) ? photolist.length : cnt;
-	var div = document.getElementById(id);
-
+function buildPhotoDiv(div, cnt) {
 	photos = ""
 	for (i=0; i<cnt; i++) {
-		photos += "<div class='photo'><img id='" + photolist[i] + "' src='" +  photolist[i].image_url + "'></img><input type='hidden' class='img_idx' name='img_idx' value=''></div>";		
+		photos += "<div class='photo'><img id='" + imageList[i] + "' src='" +  imageList[i].image_url + "'></img><input type='hidden' class='img_idx' name='img_idx' value=''></div>";		
 	}
 
 	div.innerHTML = photos;
+}
+
+function loadPhotos(id, cnt) {
+	cnt = (!cnt) ? imageList.length : cnt;
+	var div = document.getElementById(id);
+
+        buildImageList.done(buildPhotoDiv(div, cnt));
+
 };
+
 
 function setHeader(id) {
   if (id != null) {
