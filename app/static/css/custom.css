@@ -282,6 +282,37 @@ form input.text {
 	margin: 10px auto;
 }
 
+#keyfeatures {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 0 20px 0;
+    background: #18DFE6; /*#18DFE6*/
+}
+
+.threecol {
+    margin-left: 2.5%;
+    margin-bottom: 1%; 
+    width: 30%;
+    float: left;
+}
+
+#keyfeatures h1 {
+    color: #FFFFFF;
+    margin-bottom: 1em;
+}
+
+#keyfeatures p {
+    margin: 15px 0;
+}
+
+#keyfeatures .title {
+    color: #0A868A;
+}
+
+#keyfeatures .desc {
+    padding: 0 5%;
+}
+
 @media (max-width: 768px) {
 	#nav {
 		display: none;
