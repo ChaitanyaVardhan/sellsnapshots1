@@ -1,5 +1,7 @@
 var pics = []
 var cnt = 5;
+
+//move 5 images into the pics array, start with index 1 instead of 0
 function loadPics() {
 	for(i=1; i<=cnt; i++) {
 		pics[i] = new Image();
@@ -7,6 +9,7 @@ function loadPics() {
 	}
 }
 
+//start with the 2nd image and cycle through all images
 var idx = 2;
 function setPics() {
 	var obj = document.getElementById("pretty");
@@ -14,18 +17,28 @@ function setPics() {
 	if (idx > 5) idx = 1;
 }
 
-var text1 = ["sellsnapshots is a platform to buy and sell high definition photos",
-"Anybody can buy or sell photos on sellsnapshots",
-"Sift through the photos to discover what interests you"
+var text1 = ["sellsnapshots is a platform for professional photographers",
+"Are you a professional photographer?",
+"Create your portfolio page on sellsnapshots",
+"List your buisness address on Google Maps and,",
+"Offer photography services"
 ];
+
+function fadeIn(id, duration) {
+    return $(id).fadeIn(duration);
+}
+
+function fadeOut(id, duration) {
+    return $(id).fadeOut(duration);
+}
 
 var idx2=0;
 function setText1() {
 	var obj = document.getElementById("pretty_blurb");
 	if (idx2 >= text1.length) idx2 = 0;
 	obj.innerHTML = text1[idx2++];
-//  	fadeIn("pretty_blurb", 500);
-//  	setTimeout( function () { fadeOut("pretty_blurb", 500) }, 2500);	
+  	fadeIn("#pretty_blurb", 500);
+  	setTimeout( function () { fadeOut("#pretty_blurb", 500) }, 2500);	
 }
 
 function cycleItems(func, interval) {
@@ -45,6 +58,7 @@ function getAssets() {
 
 function init() {
 	loadPics();
+        setText1();
 	cycleItems(setPics, 4800);
 	cycleItems(setText1, 3500);
 	getAssets();
