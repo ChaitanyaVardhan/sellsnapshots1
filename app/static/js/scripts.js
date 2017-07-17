@@ -18,10 +18,11 @@ function setPics() {
 }
 
 var text1 = ["sellsnapshots is a platform for professional photographers",
-"Are you a professional photographer?",
-"Create your portfolio page on sellsnapshots",
-"List your buisness address on Google Maps and,",
-"Offer photography services"
+"are you a professional photographer?",
+"create your portfolio page on sellsnapshots,",
+"list your buisness address on Google Maps,",
+"offer photography services and",
+"get contacted by people looking for photography services"
 ];
 
 function fadeIn(id, duration) {
