@@ -313,6 +313,14 @@ form input.text {
     padding: 0 5%;
 }
 
+@media (max-width: 580px) {
+    .threecol {
+        float: none;
+        margin: 0px auto 10px auto;
+        width: 90%;
+        height: 100%;
+    }
+}
 @media (max-width: 768px) {
 	#nav {
 		display: none;
@@ -351,6 +359,9 @@ form input.text {
 	.linkspace {
 		margin: 12px;
 	}
+        .threecol {
+            width: 46.5%;
+        }
 }
 
 @media (max-width: 1024px) {
