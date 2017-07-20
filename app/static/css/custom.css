@@ -286,7 +286,7 @@ form input.text {
     display: inline-block;
     text-align: center;
     padding: 10px 0 20px 0;
-    background: #18DFE6; /*#18DFE6*/
+    background: #18DFE6;
 }
 
 .threecol {
@@ -361,6 +361,7 @@ form input.text {
 	}
         .threecol {
             width: 46.5%;
+            height: 9em;
         }
 }
 
@@ -368,4 +369,22 @@ form input.text {
 	#main {
 		font-size: 1.0em;
 	}
+}
+
+@media (min-width: 1136px) {
+    .threecol {
+        height: 10em;
+    }
+}
+
+@media (min-width: 1500px) {
+    .threecol {
+        height: 8em;
+    }
+}
+
+@media (max-width: 1136px) {
+    .threecol {
+        height: 8em;
+    }
 }
