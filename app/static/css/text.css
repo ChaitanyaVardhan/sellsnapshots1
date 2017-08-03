@@ -12,6 +12,12 @@ body {
 	color: #555555;
 }
 
+h1 {
+    font-size: 1.5em;
+    line-height: 1em;
+    margin-top: 1em;
+}
+
 a {
 	color: #000000;
 	text-decoration: none;
