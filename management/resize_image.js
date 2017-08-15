@@ -7,16 +7,26 @@ var images_arr = [];
 
 var PATH = '.' + '/tmp';
 
+var CONCURRENT_DOWNLOAD_LIMIT = 25;
+
+var RESIZE_DIR = '.' + '/resized';
+
 var getFiles = function(path) {
     fs.readdir(path, function(err, files) {
-	files.forEach(function(file) {
-            images_arr.push(file)
-	});
+        if (err) {
+            console.log("Error: " + err.message);
+        } else {
+	    files.forEach(function(file) {
+		images_arr.push(file)
+	    });
+        }
     })    
 }
 
 
 var resizeImg = function(item, callback) {
+    var origImg = PATH + '/' + item;
+    var resizeImg = RESIZE_DIR + '/' + item;
     gm(origImg)
     .resize(WIDTH, HEIGHT)
     .write(resizeImg, function(err) {
@@ -26,10 +36,9 @@ var resizeImg = function(item, callback) {
         }
     })
 }
-
 getFiles(PATH);
 
-async.mapLimit(images_arr, resizeImg, function(err, results) {
+async.mapLimit(images_arr, CONCURRENT_DOWNLOAD_LIMIT, resizeImg, function(err, results) {
     if (err) {
         console.log("Error: " + err.message);
     } else {
