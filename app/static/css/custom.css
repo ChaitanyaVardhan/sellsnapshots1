@@ -36,16 +36,19 @@ input[type="submit"] {
 	display: inline-block;
 	padding: 1%;
 	width: 40%;
+        height: 400px;
+        margin: 5px;
 	min-width: 300px;
 	max-width: 400px;
 	cursor: pointer;
 }
 
 .photo img {
-	vertical-align: middle;
+	vertical-align: top;
 	width: 100%;
-	height: 400px;
+	height: 100%;
 	border-radius: 4px;
+        object-fit: cover;
 }
 
 .links {
