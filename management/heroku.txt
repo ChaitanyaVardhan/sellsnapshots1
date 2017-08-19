@@ -1,0 +1,22 @@
+-------Review changes in the heroku staging app
+
+#install heroku toolbelt
+wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+#login to heroku from cli
+heroku login
+
+#add heroku staging remote repo
+git remote add heroku-staging https://git.heroku.com/sellsnapshots-staging.git
+
+#create a staging branch if it does not exist and merge develop into staging
+git checkout -b staging
+git merge develop
+git push origin staging
+
+#set new environment variables
+heroku config:set MLAB_API_KEY=''
+
+
+
+
