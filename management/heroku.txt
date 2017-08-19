@@ -17,6 +17,14 @@ git push origin staging
 #set new environment variables
 heroku config:set MLAB_API_KEY=''
 
+#database
+#get database info
+heroku pg:info
 
+#attach db to app
+heroku addon:attach <db-name>
+
+#promote the attached db as primary
+heroku pg:promote
 
 
