@@ -37,4 +37,7 @@ OAUTH_CREDENTIALS = {
 
 #Mlab
 MLAB_API_KEY = os.environ.get('MLAB_API_KEY')
-MLAB_DB_URL = os.environ.get('MLAB_DB_URL')
+
+#'https://api.mlab.com/api/1/databases/sellsnapshots-test/collections/photos?q='
+#'https://api.mlab.com/api/1/databases/sellsnapshots-prod/collections/photos?q='
+MLAB_DB_BASE_URL = os.environ.get('MLAB_DB_BASE_URL')

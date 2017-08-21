@@ -17,7 +17,7 @@ MLAB_API_KEY = os.environ.get('MLAB_API_KEY')
 # TEST AND STAGING DB 'https://api.mlab.com/api/1/databases/sellsnapshots-test/collections/photos?apiKey='
 # PROD DB 'https://api.mlab.com/api/1/databases/sellsnapshots-prod/collections/photos?apiKey='
 # USE THE ABOVE LISTED URLS AS DB_URL
-MLAB_DB_URL = os.environ.get('MLAB_DB_URL')
+MLAB_DB_POST_BASE_URL = os.environ.get('MLAB_DB_POST_BASE_URL')
 
 BUCKET_NAME = os.environ.get('BUCKET_NAME')
 
@@ -54,7 +54,7 @@ class s3_mlab_upload():
         image_url = 'https://s3.amazonaws.com/' + BUCKET_NAME + '/' + key_name
         image_data = dict(image_url=image_url)
         api_key = MLAB_API_KEY
-        url = MLAB_DB_URL + api_key
+        url = MLAB_DB_POST_BASE_URL + api_key
         headers = {'content-type': 'application/json; charset=utf-8'}
         data = json.dumps(image_data)
         response = requests.post(url, data=data, headers=headers)
