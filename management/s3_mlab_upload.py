@@ -14,11 +14,18 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 MLAB_API_KEY = os.environ.get('MLAB_API_KEY')
 
+# TEST AND STAGING DB 'https://api.mlab.com/api/1/databases/sellsnapshots-test/collections/photos?apiKey='
+# PROD DB 'https://api.mlab.com/api/1/databases/sellsnapshots-prod/collections/photos?apiKey='
+# USE THE ABOVE LISTED URLS AS DB_URL
+MLAB_DB_POST_BASE_URL = os.environ.get('MLAB_DB_POST_BASE_URL')
+
+BUCKET_NAME = os.environ.get('BUCKET_NAME')
+
 #this is the source dir within the app dir
 DIR = 'tmp'
 
 #this is the name of the destination dir on aws S3
-DEST = '2017-08-09'
+DEST = '2017-08-21'
 
 class s3_mlab_upload():
 
@@ -26,7 +33,6 @@ class s3_mlab_upload():
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger(__name__)
         self.s3 = boto3.client('s3')
-        self.BUCKET_NAME = os.environ.get('BUCKET_NAME')
 
 #read the source directory to build a list of files
     def get_files(self, dir_name):
@@ -39,16 +45,16 @@ class s3_mlab_upload():
         key_name = DEST + '/' + infile
         self.logger.info('Uploading photo to s3')
         with open(file_name, 'rb') as f:
-            self.s3.upload_fileobj(f, self.BUCKET_NAME, key_name, ExtraArgs={'ACL': 'public-read', 'ContentType': 'image/jpeg'}, Callback=None)
+            self.s3.upload_fileobj(f, BUCKET_NAME, key_name, ExtraArgs={'ACL': 'public-read', 'ContentType': 'image/jpeg'}, Callback=None)
             self.mlab_upload(key_name)
 
 #create a data dictionary for data about the file uploaded to S3 and upload the dictionary to mlab
     def mlab_upload(self, key_name):
         self.logger.info('Uploading photo data to mlab')
-        image_url = 'https://s3.amazonaws.com/' + self.BUCKET_NAME + '/' + key_name
+        image_url = 'https://s3.amazonaws.com/' + BUCKET_NAME + '/' + key_name
         image_data = dict(image_url=image_url)
         api_key = MLAB_API_KEY
-        url = 'https://api.mlab.com/api/1/databases/sellsnapshots-test/collections/photos?apiKey=' + api_key
+        url = MLAB_DB_POST_BASE_URL + api_key
         headers = {'content-type': 'application/json; charset=utf-8'}
         data = json.dumps(image_data)
         response = requests.post(url, data=data, headers=headers)

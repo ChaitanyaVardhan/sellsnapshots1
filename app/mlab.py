@@ -4,6 +4,7 @@ import logging
 import sys
 
 from config import MLAB_API_KEY
+from config import MLAB_DB_BASE_URL
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -18,10 +19,11 @@ def read_from_mlab(**kwargs):
         q['image_url'] = kwargs.get('image_url')
 
     api_key = MLAB_API_KEY
-    url_base = 'https://api.mlab.com/api/1/databases/sellsnapshots-test/collections/photos?q='
+    url_base = MLAB_DB_BASE_URL
     url = url_base  + json.dumps(q) + '&apiKey='+ api_key
 
     logging.info("Read api call to mlab")
+    logging.info("url: " + url)
     response = requests.get(url)
     search_results = response.json()
     status_code = response.status_code
