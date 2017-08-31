@@ -17,6 +17,13 @@ from mlab import read_from_mlab
 
 import json
 
+import logging
+
+import sys
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+
 CACHE = {}
 
 @app.before_request
@@ -111,13 +118,16 @@ def login():
 	email = request.form['email']
 	password = request.form['password']
 	user = User.query.filter_by(email=email).first()
-	next = request.form['next']
+        next = request.form.get('next')
 	if user is not None and user.verify_password(password):
-		login_user(user)
-		if next:
-			return redirect(next)
-		else:
-			return redirect(url_for('user'))
+	    login_user(user)
+    	    if next != 'None':
+                logging.info("redircting to :" + next)
+	        return redirect(next)
+	    else:
+                name = current_user.firstname + current_user.lastname
+                logging.info("redirecting toq : " + name)
+	        return redirect(url_for('user', name=name))
 	flash('Invalid username or password')
 	return render_template('login.html',next=next)
 
@@ -240,10 +250,15 @@ def oauth_callback(provider):
     login_user(user, True)
     return redirect(url_for('index'))
 
-@app.route('/user')
+@app.route('/<name>')
 @login_required
-def user():
-	return render_template('user.html')
+def user(name):
+    if not current_user.is_anonymous:
+        if request.url == current_user.firstname + current_user.lastname:
+            return render_template('user.html')
+        else:
+            redirect(url_for('logout'))
+    return redirect(url_for('index'))
 
 @app.route('/secret')
 @login_required

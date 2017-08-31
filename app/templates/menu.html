@@ -34,11 +34,7 @@
 		{id:"login", nav:"Log in", link:"javascript:parent.showObj('loginDIV')"}
 	]
 
-	var nav_auth = [
-		{id:"profile", nav:"profile", link:"{{ url_for('user') }}"},
-		{id:"photo", nav:"photos", link:"{{ url_for('photos') }}"},
-		{id:"logout", nav:"Log out", link:"{{ url_for('logout') }}"}	
-	]
+
 
 	var img = [
 		{id:"home_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/sellsnapshots.png"},
@@ -62,6 +58,11 @@
 	<div id="container">
 		{% if current_user.is_authenticated %}
 		<script>
+	var nav_auth = [
+		{id:"profile", nav:"profile", link:"{{ url_for('user',name=current_user.firstname+current_user.lastname) }}"},
+		{id:"photo", nav:"photos", link:"{{ url_for('photos') }}"},
+		{id:"logout", nav:"Log out", link:"{{ url_for('logout') }}"}	
+	]
 		for (i=0; i<nav_auth.length; i++) {
 			document.write("<p><a id=" + nav_auth[i]["id"] + " href='" + nav_auth[i]["link"] + "' target='_parent'>" + nav_auth[i]["nav"] + 
 				"</a></p>");				
