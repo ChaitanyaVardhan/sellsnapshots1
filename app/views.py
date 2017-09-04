@@ -251,15 +251,19 @@ def oauth_callback(provider):
     return redirect(url_for('index'))
 
 @app.route('/<name>')
-@login_required
+#@login_required
 def user(name):
-    if not current_user.is_anonymous:
+    user = User.query.filter_by(firstname=name).first()
+    if user is not None:
+        return ("Hello " + user.firstname + ' ' + user.lastname)
+    return ("hello" + name)
+'''    if not current_user.is_anonymous:
         if request.url == current_user.firstname + current_user.lastname:
             return render_template('user.html')
         else:
             redirect(url_for('logout'))
     return redirect(url_for('index'))
-
+'''
 @app.route('/secret')
 @login_required
 def secret():
