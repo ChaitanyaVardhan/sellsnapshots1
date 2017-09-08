@@ -69,6 +69,7 @@ def register():
 	if user is None:
 		user = User(firstname = first_name, lastname = last_name, city = city, country = country, email = email\
 			,password=password)
+                user.create_user_url()
 		db.session.add(user)
 		db.session.commit()
 		token = user.generate_confirmation_token()
@@ -251,19 +252,22 @@ def oauth_callback(provider):
     return redirect(url_for('index'))
 
 @app.route('/<name>')
-#@login_required
 def user(name):
-    user = User.query.filter_by(firstname=name).first()
-    if user is not None:
-        return ("Hello " + user.firstname + ' ' + user.lastname)
-    return ("hello" + name)
-'''    if not current_user.is_anonymous:
-        if request.url == current_user.firstname + current_user.lastname:
-            return render_template('user.html')
+    name_lower = name.lower()
+    key = name_lower
+    if key in CACHE:
+        user_data = CACHE[key]
+    else:
+        user = User.query.filter_by(user_url=name_lower).first()        
+        if user is not None:
+            key = user.user_url
+            user_email = user.email
+            user_data = read_from_mlab(email=user_email)    
+            CACHE[key] = user_data
         else:
-            redirect(url_for('logout'))
-    return redirect(url_for('index'))
-'''
+            return ("error 404")
+    return render_template("user_front_page.html", user_data=user_data)
+
 @app.route('/secret')
 @login_required
 def secret():
