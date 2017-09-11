@@ -3,6 +3,8 @@ from flask import Flask, render_template, redirect, url_for, request,\
 
 from flask_login import login_user, logout_user, login_required, current_user
 
+from werkzeug.exceptions import HTTPException, NotFound
+
 from app import app, db
 
 from .models import User
@@ -258,15 +260,22 @@ def user(name):
     if key in CACHE:
         user_data = CACHE[key]
     else:
-        user = User.query.filter_by(user_url=name_lower).first()        
+        if not current_user.is_anonymous:
+            user = current_user
+        else:
+            user = User.query.filter_by(user_url=name_lower).first()        
         if user is not None:
             key = user.user_url
             user_email = user.email
             user_data = read_from_mlab(email=user_email)    
             CACHE[key] = user_data
         else:
-            return ("error 404")
-    return render_template("user_front_page.html", user_data=user_data)
+            raise NotFound()
+
+    if not current_user.is_anonymous:
+        return render_template("user.html")
+    else:
+        return render_template("user_front_page.html", user_data=user_data)
 
 @app.route('/secret')
 @login_required
@@ -289,3 +298,9 @@ def api_v1_photos():
         CACHE[key] = images
 
     return json.dumps(images)
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html'), 404
+
+        

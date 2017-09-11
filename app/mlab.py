@@ -11,12 +11,9 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 def read_from_mlab(**kwargs):
     q = {}
-    if kwargs.get('caption'):
-        q['caption'] = kwargs.get('caption')
-    if kwargs.get('description'):
-        q['description'] = kwargs.get('description')
-    if kwargs.get('image_url'):
-        q['image_url'] = kwargs.get('image_url')
+
+    for key in kwargs:
+        q[key] = kwargs[key]
 
     api_key = MLAB_API_KEY
     url_base = MLAB_DB_BASE_URL
