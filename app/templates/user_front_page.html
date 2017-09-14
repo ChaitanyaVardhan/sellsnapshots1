@@ -49,7 +49,14 @@
     <iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
 
     <div id="photodiv">
-        <div id="photos">Hey there its working</div>
+        <div id="photos">
+        {% for photo in photos %}
+            <div class="photo">
+                <img id="" src="{{ photo.photo_url }}"></img>
+                <input type="hidden" class="img_idx" value="">
+            </div>
+        {% endfor %}
+        </div>
     </div>
 
 <!-- footer -->

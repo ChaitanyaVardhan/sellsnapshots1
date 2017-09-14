@@ -9,7 +9,7 @@ from config import MLAB_DB_BASE_URL
 logger = logging.getLogger(__name__)
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
-def read_from_mlab(**kwargs):
+def read_from_mlab(coll=None, **kwargs):
     q = {}
 
     for key in kwargs:
@@ -17,7 +17,7 @@ def read_from_mlab(**kwargs):
 
     api_key = MLAB_API_KEY
     url_base = MLAB_DB_BASE_URL
-    url = url_base  + json.dumps(q) + '&apiKey='+ api_key
+    url = url_base + coll + '?q='  + json.dumps(q) + '&apiKey='+ api_key
 
     logging.info("Read api call to mlab")
     logging.info("url: " + url)
