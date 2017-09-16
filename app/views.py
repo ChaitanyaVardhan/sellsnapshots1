@@ -267,16 +267,15 @@ def user(name):
         if user is not None:
             key = user.user_url
             user_email = user.email
-            user_data = read_from_mlab(coll='user-data', email=user_email)    
+            user_data, status_code = read_from_mlab(coll='user-data', email=user_email)    
             CACHE[key] = user_data
         else:
             raise NotFound()
 
-    photos = json.dumps(user_data)
     if not current_user.is_anonymous:
         return render_template("user.html")
     else:
-        return render_template("user_front_page.html", photos=photos)
+        return render_template("user_front_page.html", photos=user_data)
 
 @app.route('/secret')
 @login_required
