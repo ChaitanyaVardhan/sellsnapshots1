@@ -11,6 +11,8 @@ if os.environ.get('DATABASE_URL') is None:
 else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+
 
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 

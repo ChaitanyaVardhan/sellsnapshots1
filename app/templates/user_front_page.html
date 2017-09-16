@@ -24,19 +24,6 @@
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
-	<script>
-		var img = [
-			{id:"badge_img", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/badge.png"},
-			{id:"img_close", src:"https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/x.png"}
-		]
-		function init() {
-			var badge_img = document.getElementById("badge_img");
-			badge_img.src = img[0]["src"];
-			var img_close = document.getElementById("img_close");
-			img_close.src = img[1]["src"];
-		}
-	</script>
-
 	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
@@ -52,7 +39,7 @@
 	</script>
 
 </head>
-<body onLoad="init()">
+<body onLoad="fillInputTagValue('photos')">
 
 <!-- Begin content -->
 

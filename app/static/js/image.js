@@ -39,6 +39,9 @@ function showImageModal (idx, src) {
             t2.style.height = '100%';
             t2.style.width = 'auto';
         }
+
+        var imgClose = t1.getElementsByTagName('IMG')[0];
+        imgClose.src = "https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/x.png"
          
         var leftNav = t1.getElementsByTagName('IMG')[1];
         leftNav.src = "https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/nav-arrow-left.png";        
