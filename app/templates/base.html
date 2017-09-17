@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+{% block head_style %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}
+
+{% block head_script %}
+{% endblock %}
+
 {% endblock %}
 
 {% block navbar %}
@@ -59,8 +70,4 @@
 
     {% block page_content %}{% endblock %}
 </div>
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
 {% endblock %}

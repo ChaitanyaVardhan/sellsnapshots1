@@ -273,7 +273,7 @@ def user(name):
             raise NotFound()
 
     if not current_user.is_anonymous:
-        return render_template("user.html")
+        return render_template("user.html", photos=user_data)
     else:
         return render_template("user_front_page.html", photos=user_data)
 
