@@ -12,8 +12,8 @@
     </style>
 {% endblock %}
 
-{% block head_script %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+{% block body_attribs %}
+onLoad="fillInputTagValue('photos')"
 {% endblock %}
 
 {% block page_content %}
@@ -38,7 +38,10 @@
 <div id="imageDIV">
     {% include 'image_modal.html' %}
 </div>
- 
-<script src="{{ url_for('static', filename='js/image.js') }}"></script>
+{% endblock %}
 
+{% block scripts %}
+{{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/image.js') }}"></script>
 {% endblock %}

@@ -125,11 +125,9 @@ def login():
 	if user is not None and user.verify_password(password):
 	    login_user(user)
     	    if next != 'None':
-                logging.info("redircting to :" + next)
 	        return redirect(next)
 	    else:
                 name = current_user.firstname + current_user.lastname
-                logging.info("redirecting toq : " + name)
 	        return redirect(url_for('user', name=name))
 	flash('Invalid username or password')
 	return render_template('login.html',next=next)

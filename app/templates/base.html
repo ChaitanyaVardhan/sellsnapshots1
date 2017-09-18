@@ -12,17 +12,11 @@
 {% block head_style %}
 {% endblock %}
 
-{% block scripts %}
-{{ super() }}
 {% endblock %}
 
-{% block head_script %}
-{% endblock %}
-
-{% endblock %}
-
-{% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
+{% block content %}
+<div id="content">
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -57,10 +51,7 @@
         </div>
     </div>
 </div>
-{% endblock %}
 
-{% block content %}
-<div class="container">
     {% for message in get_flashed_messages() %}
     <div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -71,3 +62,6 @@
     {% block page_content %}{% endblock %}
 </div>
 {% endblock %}
+
+
+
