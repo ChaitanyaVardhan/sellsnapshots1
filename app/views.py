@@ -286,6 +286,11 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
+@app.route('/upload')
+@login_required
+def upload_photos():
+    return render_template("upload_photos.html")
+
 @app.route('/api/v1/photos')
 def api_v1_photos():
     key = 'FRONT'
@@ -300,5 +305,6 @@ def api_v1_photos():
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html'), 404
+
 
         
