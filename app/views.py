@@ -302,6 +302,22 @@ def api_v1_photos():
 
     return json.dumps(images)
 
+@app.route('/s3uploadtoken')
+@login_required
+def s3_upload_token():
+    filename = request.args.get('filename')
+    filetype = request.args.get('filetype')
+    url = 'dummy url'
+
+    logging.info('filename: ' + filename)
+    logging.info('filetype: ' + filetype)
+
+    return json.dumps([{
+        'filename': filename,
+        'filetype': filetype,
+        'url': url
+    },{'sender': 'chaitanya'}])
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html'), 404

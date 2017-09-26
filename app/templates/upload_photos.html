@@ -1,1 +1,12 @@
-Hello World from upload_photos
+{% extends "base.html" %}
+
+{% block page_content %}
+<input type="file" id="file-input">
+<input type="submit" value="upload photo">
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/s3_upload.js') }}"></script>
+{% endblock %}
+
