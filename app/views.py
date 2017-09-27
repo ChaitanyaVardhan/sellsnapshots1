@@ -23,6 +23,8 @@ import logging
 
 import sys
 
+import boto3
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
@@ -303,20 +305,33 @@ def api_v1_photos():
     return json.dumps(images)
 
 @app.route('/s3uploadtoken')
-@login_required
 def s3_upload_token():
-    filename = request.args.get('filename')
-    filetype = request.args.get('filetype')
-    url = 'dummy url'
+    if current_user.is_anonymous:
+        return redirect(url_for('index'))
+    S3_BUCKET = app.config['S3_BUCKET']
+    file_name = request.args.get('filename')
+    file_type = request.args.get('filetype')
 
-    logging.info('filename: ' + filename)
-    logging.info('filetype: ' + filetype)
+    s3 = boto3.client('s3')
 
-    return json.dumps([{
-        'filename': filename,
-        'filetype': filetype,
-        'url': url
-    },{'sender': 'chaitanya'}])
+    presigned_post = s3.generate_presigned_post(
+        Bucket = S3_BUCKET,
+        Key = file_name,
+        Fields = {"acl": "public-read", "Content-Type": file_type},
+        Conditions = [
+          {"acl": "public-read"},
+          {"Content-Type": file_type}
+        ],
+        ExpiresIn = 3600
+    )
+
+    logging.info('filename: ' + file_name)
+    logging.info('filetype: ' + file_type)
+
+    return json.dumps({
+        'data': presigned_post,
+        'url': 'https://s3.amazonaws.com/%s/%s/%s' % (S3_BUCKET, current_user.user_url, file_name)
+    })
 
 @app.errorhandler(404)
 def not_found(e):

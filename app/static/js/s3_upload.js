@@ -10,8 +10,6 @@ function getSignedRequest(file) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8'
     }).done(function(response) {
         console.log(response);
-        console.log('filename: ' + response[0].filename);
-        console.log('filetype: ' + response[0].filetype);
     });
 
 }

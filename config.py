@@ -43,3 +43,11 @@ MLAB_API_KEY = os.environ.get('MLAB_API_KEY')
 #'https://api.mlab.com/api/1/databases/sellsnapshots-test/collections/'
 #'https://api.mlab.com/api/1/databases/sellsnapshots-prod/collections/'
 MLAB_DB_BASE_URL = os.environ.get('MLAB_DB_BASE_URL')
+
+#s3_bucket
+S3_BUCKET = 'sellsnapshots-users'
+
+#boto3 access key and secret
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+

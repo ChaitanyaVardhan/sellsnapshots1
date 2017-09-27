@@ -1,5 +1,6 @@
 appdirs==1.4.3
 blinker==1.4
+boto3==1.4.7
 click==6.6
 decorator==4.0.10
 dominate==2.3.1
