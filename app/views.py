@@ -15,7 +15,7 @@ from .forms import ChangePasswordForm, PasswordResetRequestForm, PasswordResetFo
 
 from oauth import OAuthSignIn
 
-from mlab import read_from_mlab
+from mlab import read_from_mlab, upload_to_mlab
 
 import json
 
@@ -316,7 +316,7 @@ def s3_upload_token():
 
     presigned_post = s3.generate_presigned_post(
         Bucket = S3_BUCKET,
-        Key = file_name,
+        Key = current_user.user_url + '/' + file_name,
         Fields = {"acl": "public-read", "Content-Type": file_type},
         Conditions = [
           {"acl": "public-read"},
@@ -332,6 +332,28 @@ def s3_upload_token():
         'data': presigned_post,
         'url': 'https://s3.amazonaws.com/%s/%s/%s' % (S3_BUCKET, current_user.user_url, file_name)
     })
+
+@app.route('/mlabupload')
+def upload_mlab():
+    if current_user.is_anonymous:
+        return redirect(url_for('index'))
+    S3_BUCKET = app.config['S3_BUCKET']
+    file_name = request.args.get('filename')
+
+    logging.info('triggered mlab upload')
+    logging.info('filename: ' + file_name)
+
+    photo_data = {}
+    photo_data['email'] = current_user.email
+    photo_data['photo_url'] = 'https://s3.amazonaws.com/%s/%s/%s' % (S3_BUCKET, current_user.user_url, file_name)
+
+    status_code_write = upload_to_mlab(coll='user-data', photo_data=photo_data)
+    logging.info('status_code_write: ' + str(status_code_write))
+
+    if status_code_write == 200:
+        CACHE[current_user.user_url], status_code_read = read_from_mlab(coll='user-data', email=current_user.email)
+
+    return json.dumps({'status_code': status_code_write})
 
 @app.errorhandler(404)
 def not_found(e):

@@ -1,27 +1,41 @@
-    /*
-      Function to carry out the actual POST request to S3 using the signed request from the Python app.
-    */
-    function uploadFile(response, file){
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', response.data.url);
-      xhr.setRequestHeader('x-amz-acl', 'public-read');
-      const postData = new FormData();
-      for(key in response.data.fields){
+/*
+function to upload data to mlab db
+*/
+function uploadMlab(fileName) {
+    var data = {};
+    data['filename'] = fileName;
+
+    $.ajax({
+      url: '/mlabupload',
+      data: data
+    })
+}
+
+/*
+  Function to carry out the actual POST request to S3 using the signed request from the Python app.
+*/
+function uploadFile(response, file){
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', response.data.url);
+    xhr.setRequestHeader('x-amz-acl', 'public-read');
+    const postData = new FormData();
+    for(key in response.data.fields){
         postData.append(key, response.data.fields[key]);
-      }
-      postData.append('file', file);
-      xhr.onreadystatechange = () => {
-        if(xhr.readyState === 4){
-          if(xhr.status === 200 || xhr.status === 204){
-            alert('file uploaded');
-          }
-          else{
-            alert('Could not upload file.');
-          }
-        }
-      };
-      xhr.send(postData);
     }
+    postData.append('file', file);
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4){
+            if(xhr.status === 200 || xhr.status === 204){
+		alert('file uploaded');
+                uploadMlab(file.name);                            
+            }
+            else{
+		alert('Could not upload file.');
+            }
+        }
+    };
+    xhr.send(postData);
+}
 /*
 function uploadFile(response, file) {
     var postData = new FormData();
