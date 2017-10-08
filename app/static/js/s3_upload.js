@@ -85,11 +85,14 @@ function getSignedRequest(file) {
 
 function initUpload() {
     var files = document.getElementById('file-input').files;
-    var file = files[0];
+//    var file = files[0];
 
-    if (!file) { return alert('No file selected.'); }
+//    if (!file) { return alert('No file selected.'); }
 
-    getSignedRequest(file)
+    for (var i=0; i<files.length; i++) {
+        console.log('file: ' + files[i]);
+        getSignedRequest(files[i]);
+    }
 }
 
 $('#file-input').on('change', initUpload)
