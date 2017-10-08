@@ -67,7 +67,6 @@ function uploadFile(response, file) {
 */
 
 function getSignedRequest(file) {
-    console.log("Hello World from getSignedRequest");
     var data = {};
     data['filename'] = file.name;
     data['filetype'] = file.type;
@@ -77,22 +76,26 @@ function getSignedRequest(file) {
         data: data,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8'
     }).done(function(response) {
-        console.log(response);
         uploadFile(response, file);
     });
 
 }
 
-function initUpload() {
-    var files = document.getElementById('file-input').files;
-//    var file = files[0];
+var files = [];
 
-//    if (!file) { return alert('No file selected.'); }
+/* get the list of selected file */
+
+$('#file-input').on('change', function() {
+    files = document.getElementById('file-input').files;
+});
+
+/*upload the files */
+
+$('#photo_upload').on('click', function() {
+    if (files.length === 0) { return alert('No file selected.'); }
 
     for (var i=0; i<files.length; i++) {
         console.log('file: ' + files[i]);
         getSignedRequest(files[i]);
     }
-}
-
-$('#file-input').on('change', initUpload)
+});
