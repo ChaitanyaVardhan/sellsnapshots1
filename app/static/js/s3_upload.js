@@ -87,6 +87,30 @@ var files = [];
 
 $('#file-input').on('change', function() {
     files = document.getElementById('file-input').files;
+    
+    for (var i=0; i<files.length; i++) {
+
+        f = files[i];
+
+        //only process image files.
+        if (!f.type.match('image.*')) {
+            continue;
+        }
+
+        var reader = new FileReader();
+
+        //Closure to capture the file information
+        reader.onload = (function(theFile) {
+            return function(e) {
+                var span = document.createElement('span');
+                span.innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '">'].join('');
+                document.getElementById('list').insertBefore(span, null);
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
+    }
 });
 
 /*upload the files */
@@ -95,7 +119,6 @@ $('#photo_upload').on('click', function() {
     if (files.length === 0) { return alert('No file selected.'); }
 
     for (var i=0; i<files.length; i++) {
-        console.log('file: ' + files[i]);
         getSignedRequest(files[i]);
     }
 });
