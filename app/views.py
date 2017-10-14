@@ -11,11 +11,11 @@ from .models import User
 
 from .emails import send_email
 
-from .forms import ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
+from .forms import ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm, EditProdAndLocForm
 
 from oauth import OAuthSignIn
 
-from mlab import read_from_mlab, upload_to_mlab
+from mlab import read_from_mlab, update_to_mlab
 
 import json
 
@@ -347,13 +347,44 @@ def upload_mlab():
     photo_data['email'] = current_user.email
     photo_data['photo_url'] = 'https://s3.amazonaws.com/%s/%s/%s' % (S3_BUCKET, current_user.user_url, file_name)
 
-    status_code_write = upload_to_mlab(coll='user-data', photo_data=photo_data)
+    status_code_write = update_to_mlab(coll='user-data', data=photo_data)
     logging.info('status_code_write: ' + str(status_code_write))
 
     if status_code_write == 200:
         CACHE[current_user.user_url], status_code_read = read_from_mlab(coll='user-data', email=current_user.email)
 
     return json.dumps({'status_code': status_code_write})
+
+@app.route('/edit-prod-loc', methods=['GET', 'POST'])
+@login_required
+def edit_prod_loc():
+    form = EditProdAndLocForm()
+
+    if form.validate_on_submit():
+        user_data = dict(
+          email=current_user.email,
+          prod1=form.product_name1.data,
+          price1=form.price1.data,
+          prod2=form.product_name2.data,
+          price2=form.price2.data,
+          prod3=form.product_name3.data,
+          price3=form.price3.data,
+          prod4=form.product_name4.data,
+          price4=form.price4.data,
+          prod5=form.product_name5.data,
+          price5=form.price5.data,
+          location=form.location.data
+        )
+        status_code_write = update_to_mlab(coll='user-data', data=user_data)
+        logging.info('status_code_write: ' + str(status_code_write))
+
+        if status_code_write == 200:
+            CACHE[current_user.user_url], status_code_read = read_from_mlab(coll='user-data', email=current_user.email)
+
+        name = current_user.firstname + current_user.lastname
+        return redirect(url_for('user', name=name))
+
+    return render_template('edit_prod.html', form=form)
 
 @app.errorhandler(404)
 def not_found(e):

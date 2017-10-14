@@ -28,14 +28,14 @@ def read_from_mlab(coll=None, **kwargs):
 
     return search_results, status_code
 
-def upload_to_mlab(coll=None, photo_data=None, **kwargs):
+def update_to_mlab(coll=None, data=None, **kwargs):
 
     url_base = MLAB_DB_BASE_URL
     api_key = MLAB_API_KEY
     url = url_base + coll + '?apiKey=' + api_key
     logging.info("url: " + url)
     headers = {'content-type': 'application/json; charset=utf-8'}
-    data = json.dumps(photo_data)
+    data = json.dumps(data)
 
     logging.info('update api call to mlab')
     response = requests.post(url, data=data, headers=headers)

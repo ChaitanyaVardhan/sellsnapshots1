@@ -39,4 +39,19 @@ class ChangeEmailForm(FlaskForm):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already registered.')
 
+class EditProdAndLocForm(FlaskForm):
+
+    product_name1 = StringField('Product Name', validators=[Length(0,64)])
+    price1 = StringField('Price', validators=[Length(0,10)])
+    product_name2 = StringField('Product Name', validators=[Length(0,64)])
+    price2 = StringField('Price', validators=[Length(0,10)])
+    product_name3 = StringField('Product Name', validators=[Length(0,64)])
+    price3 = StringField('Price', validators=[Length(0,10)])
+    product_name4 = StringField('Product Name', validators=[Length(0,64)])
+    price4 = StringField('Price', validators=[Length(0,10)])
+    product_name5 = StringField('Product Name', validators=[Length(0,64)])
+    price5 = StringField('Price', validators=[Length(0,10)])
+    location = StringField('Location', validators=[Length(0,10)])
+    submit = SubmitField('Update')
+
 
