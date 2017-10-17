@@ -256,7 +256,7 @@ def oauth_callback(provider):
 @app.route('/<name>')
 def user(name):
     name_lower = name.lower()
-    key = name_lower
+    key = (name_lower, 'photo')
     if key in CACHE:
         user_data = CACHE[key]
     else:
@@ -267,7 +267,8 @@ def user(name):
         if user is not None:
             key = user.user_url
             user_email = user.email
-            user_data, status_code = read_from_mlab(coll='user-data', email=user_email)    
+            user_data, status_code = read_from_mlab(coll='user-data', email=user_email, doc_type='photo')    
+            key = (key,'photo')
             CACHE[key] = user_data
         else:
             raise NotFound()
@@ -343,15 +344,16 @@ def upload_mlab():
     logging.info('triggered mlab upload')
     logging.info('filename: ' + file_name)
 
-    photo_data = {}
-    photo_data['email'] = current_user.email
-    photo_data['photo_url'] = 'https://s3.amazonaws.com/%s/%s/%s' % (S3_BUCKET, current_user.user_url, file_name)
+    data = {}
+    data['email'] = current_user.email
+    data['doc_type'] = 'photo'
+    data['photo_url'] = 'https://s3.amazonaws.com/%s/%s/%s' % (S3_BUCKET, current_user.user_url, file_name)
 
-    status_code_write = update_to_mlab(coll='user-data', data=photo_data)
+    status_code_write = update_to_mlab(coll='user-data', data=data)
     logging.info('status_code_write: ' + str(status_code_write))
 
     if status_code_write == 200:
-        CACHE[current_user.user_url], status_code_read = read_from_mlab(coll='user-data', email=current_user.email)
+        CACHE[(current_user.user_url,'photo')], status_code_read = read_from_mlab(coll='user-data', email=current_user.email, doc_type='photo')
 
     return json.dumps({'status_code': status_code_write})
 
@@ -361,25 +363,41 @@ def edit_prod_loc():
     form = EditProdAndLocForm()
 
     if form.validate_on_submit():
-        user_data = dict(
+        data = [dict(
           email=current_user.email,
-          prod1=form.product_name1.data,
-          price1=form.price1.data,
-          prod2=form.product_name2.data,
-          price2=form.price2.data,
-          prod3=form.product_name3.data,
-          price3=form.price3.data,
-          prod4=form.product_name4.data,
-          price4=form.price4.data,
-          prod5=form.product_name5.data,
-          price5=form.price5.data,
-          location=form.location.data
-        )
-        status_code_write = update_to_mlab(coll='user-data', data=user_data)
+          doc_type='product',
+          prod=form.product_name1.data,
+          price=form.price1.data),
+          dict(
+          email=current_user.email,
+          doc_type='product',
+          prod=form.product_name2.data,
+          price2=form.price2.data),
+          dict(
+          email=current_user.email,
+          doc_type='product',
+          prod=form.product_name3.data,
+          price=form.price3.data),
+          dict(
+          email=current_user.email,
+          doc_type='product',
+          prod=form.product_name4.data,
+          price=form.price4.data),
+          dict(
+          email=current_user.email,
+          doc_type='product',
+          prod=form.product_name5.data,
+          price=form.price5.data),
+          dict(
+          email=current_user.email,
+          doc_type='location',
+          location=form.location.data)
+        ]
+        status_code_write = update_to_mlab(coll='user-data', data=data)
         logging.info('status_code_write: ' + str(status_code_write))
 
         if status_code_write == 200:
-            CACHE[current_user.user_url], status_code_read = read_from_mlab(coll='user-data', email=current_user.email)
+            CACHE[(current_user.user_url,'product')], status_code_read = read_from_mlab(coll='user-data', email=current_user.email, doc_type='product')
 
         name = current_user.firstname + current_user.lastname
         return redirect(url_for('user', name=name))
