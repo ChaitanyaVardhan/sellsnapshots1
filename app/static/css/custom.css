@@ -316,6 +316,32 @@ form input.text {
     padding: 0 5%;
 }
 
+#profile_nav_wrapper {
+    margin-top: 100px;
+    height: 50px;
+}
+
+#tabs_wrapper {
+    position: relative;
+}
+
+#profile_nav {
+    border-top: 1px solid #eeeff2;
+    border-bottom: 1px solid #eeeff2;
+    background-color: #fff;
+    list-style-type: none;
+    text-align: center;
+    white-space: nowrap;
+    overflow-x : auto;
+}
+
+#profile_nav li {
+    display: inline;
+    margin: 0 10px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
 @media (max-width: 580px) {
     .threecol {
         float: none;

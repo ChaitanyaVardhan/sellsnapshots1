@@ -48,6 +48,16 @@
 <!-- header -->
     <iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
 
+<!-- profile nav -->
+    <div id="profile_nav_wrapper">
+      <div id="tabs_wrapper">
+        <ul id="profile_nav">
+          <li id="profile_photos"><a href="{{ url_for('user', name=username) }}">photos</a></li>
+          <li id="profile_services"><a href="{{ url_for('user_services', name=username) }}">services</a></li>
+        </ul>
+      </div>
+    </div>
+
     <div id="photodiv">
         <div id="photos">
         {% for photo in photos %}

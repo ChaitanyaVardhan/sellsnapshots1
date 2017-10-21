@@ -276,7 +276,11 @@ def user(name):
     if not current_user.is_anonymous:
         return render_template("user.html", photos=user_data)
     else:
-        return render_template("user_front_page.html", photos=user_data)
+        return render_template("user_front_page.html", photos=user_data, username=name_lower)
+
+@app.route('/<name>/services')
+def user_services(name):
+    return "Hello world from user_services"
 
 @app.route('/secret')
 @login_required
