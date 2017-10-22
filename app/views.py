@@ -280,7 +280,20 @@ def user(name):
 
 @app.route('/<name>/services')
 def user_services(name):
-    return "Hello world from user_services"
+    name_lower = name.lower()
+    key = (name_lower, 'product')
+    if key in CACHE:
+        data = CACHE[key]
+    else:
+        user = User.query.filter_by(user_url=name_lower).first()
+        if user is not None:
+            data, status_code = read_from_mlab(coll='user-data', email=user.email, doc_type='product')
+            key = (user.user_url, 'product')
+            CACHE[key] = data
+        else:
+            raise NotFound()
+    
+    return render_template("user_services.html", data=data)
 
 @app.route('/secret')
 @login_required
