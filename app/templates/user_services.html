@@ -1,5 +1,30 @@
-Hello world from user services html
+<head>
+  <style rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}"></style>
+  <style rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}"></style>
+  <style rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}"></style>
+  <style rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></style>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous">
+    </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</head>
 
-{% for obj in data %}
-    <p>{{ obj.prod }} {{ obj.price }}</p>
-{% endfor %}
+<body>
+
+<div id="content">
+  <iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
+
+  <div id="accordion" role="tablist">
+    {% for obj in data %}
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOne">
+          <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <p>{{ obj.prod }} {{ obj.price }}</p>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+</body>
