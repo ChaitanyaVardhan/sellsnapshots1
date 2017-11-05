@@ -342,6 +342,40 @@ form input.text {
     cursor: pointer;
 }
 
+#contact_modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #FFF;
+}
+
+#modal_container {
+    position: relative;
+    background: #FFF;
+    min-width: 300px;
+    top: 70px;
+    width: 50%;
+    height: 80%;
+    margin: auto;
+}
+
+#modal_close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    top: 5px;
+    right: 5px;
+    opacity: 0.1;
+}
+
+#modal_close:hover {
+    opacity: 1;
+}
+
 @media (max-width: 580px) {
     .threecol {
         float: none;
@@ -376,6 +410,10 @@ form input.text {
 	#login_title p {
 		font-size: 20px;
 	}
+    #modal_container {
+        width:95%;
+        height: 95%;
+    }
 }
 
 @media (max-width: 640px) {

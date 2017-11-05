@@ -55,6 +55,7 @@
           <li id="profile_photos"><a href="{{ url_for('user', name=username) }}">photos</a></li>
           <li id="profile_services"><a href="{{ url_for('user_services', name=username) }}">services</a></li>
         </ul>
+        <a href="javascript:showObj('contact_modal')"><div id="contact_button" class="button">Contact</div></a>
       </div>
     </div>
 
@@ -87,6 +88,11 @@
     {% include 'image_modal.html' %}
 </div>
  
+<!-- contact modal--->
+<div id="contact_modal">
+    {% include 'contact_modal.html' %}
+</div>
+
 <script src="{{ url_for('static', filename='js/image.js') }}"></script>
 
 <script>
