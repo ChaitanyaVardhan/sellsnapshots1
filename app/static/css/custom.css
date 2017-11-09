@@ -362,6 +362,19 @@ form input.text {
     margin: auto;
 }
 
+#modal_content {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+form input.modal_text {
+    width: 200px;
+}
+
+.contact_modal_row {
+    margin-bottom: 10px;
+}
+
 #modal_close {
     position: absolute;
     width: 30px;
@@ -420,6 +433,9 @@ form input.text {
 	#login_content {
 		max-width: 300px;
 	}	
+    #modal_content {
+        max-width: 300px;
+    }
 }
 
 @media (max-width: 960px) {
