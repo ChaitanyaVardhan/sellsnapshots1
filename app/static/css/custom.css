@@ -360,6 +360,8 @@ form input.text {
     width: 50%;
     height: 80%;
     margin: auto;
+    text-align: center;
+    padding-top: 50px;
 }
 
 #modal_content {
@@ -367,8 +369,19 @@ form input.text {
     max-width: 600px;
 }
 
-form input.modal_text {
+#contact_form input.modal_text {
     width: 200px;
+    height: 30px;
+    padding: 10px 20px;
+    border: 0px;
+    background-color: #f2f2f2;
+}
+
+#contact_form textarea {
+    padding: 10px 20px;
+    margin: 2px;
+    border: 0px;
+    background-color: #f2f2f2;
 }
 
 .contact_modal_row {

@@ -421,6 +421,11 @@ def edit_prod_loc():
 
     return render_template('edit_prod.html', form=form)
 
+@app.route('/contact_pg', methods=['POST'])
+def contact_photographer():
+    name = request.form['name']
+    return name
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html'), 404

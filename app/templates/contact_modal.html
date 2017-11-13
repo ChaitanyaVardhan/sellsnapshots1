@@ -1,12 +1,12 @@
 <div id="modal_container">
     <div id="modal_content">
       <div class="form">
-	<form method="post" action="/contact_pg">
+	<form method="post" id="contact_form" action="/contact_pg">
 	  <div class="contact_modal_row"><input class="modal_text" id="name" name="name" maxlength="64" placeholder="Your Name" tabindex="1"></div>
-	  <div class="contact_modal_row"><input id="Moblie no." name="mobile_no" maxlength="64" placeholder="Mobile No." tabindex="2"></div>
-	  <div class="contact_modal_row"><input id="email" name="email" maxlength="64" placeholder="Email Address" tabindex="3"></div>
-	  <div class="contact_modal_row"><textarea id="requirements" name="requirements" rows="5" cols="30" placeholder="What are your requirements?" tabindex="4"></textarea></div>
-	  <div class="contact_modal_row"><input id="contact_button" class="button" type="submit" value="Submit"></div>
+	  <div class="contact_modal_row"><input class="modal_text" id="Moblie no." name="mobile_no" maxlength="64" placeholder="Mobile No." tabindex="2"></div>
+	  <div class="contact_modal_row"><input class="modal_text" id="email" name="email" maxlength="64" placeholder="Email Address" tabindex="3"></div>
+	  <div class="contact_modal_row"><textarea id="requirements" name="requirements" rows="5" cols="25" placeholder="What are your requirements?" tabindex="4"></textarea></div>
+	  <div class="contact_modal_row"><input id="contact_button" class="button" type="submit" value="Submit" tabindex="5"></div>
 	</form>
       </div>
       <div id="modal_close"><a href="javascript:hideObj('contact_modal')"><img id="close_img" src="https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/x.png"></a></div>
