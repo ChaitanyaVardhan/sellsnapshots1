@@ -270,6 +270,7 @@ def user(name):
             user_data, status_code = read_from_mlab(coll='user-data', email=user_email, doc_type='photo')    
             key = (key,'photo')
             CACHE[key] = user_data
+            CACHE[(user.user_url, 'user')] = dict(email=user.email, user_url=user.user_url, firstname=user.firstname, lastname=user.lastname)
         else:
             raise NotFound()
 
@@ -424,7 +425,17 @@ def edit_prod_loc():
 @app.route('/contact_pg', methods=['POST'])
 def contact_photographer():
     name = request.form['name']
-    return name
+    mobile_no = request.form['mobile_no']
+    email = request.form['email']
+    requirements = request.form['requirements']
+    pg_name = request.form['pg_name']
+    user = CACHE[(pg_name, 'user')]
+    
+    cust_data = dict(name=name, mobile_no=mobile_no, email=email, requirements=requirements)
+
+    send_email(user['email'], 'Message from a potential customer', 'contact_pg_email', user=user, cust_data=cust_data)
+
+    return redirect(url_for('user', name=pg_name))
 
 @app.errorhandler(404)
 def not_found(e):
