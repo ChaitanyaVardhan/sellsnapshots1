@@ -23,7 +23,7 @@ var buildImageList = getImageList().done(function(data) {
 function buildPhotoDiv(div, cnt) {
 	photos = ""
 	for (i=0; i<cnt; i++) {
-		photos += "<div class='photo'><img id='" + imageList[i] + "' src='" +  imageList[i].image_url + "'></img><input type='hidden' class='img_idx' name='img_idx' value=''></div>";		
+		photos += "<div class='photo'><img class='contained_img' src='" +  imageList[i].image_url + "'></img><input type='hidden' class='img_idx' name='img_idx' value=''></div>";		
 	}
 
 	div.innerHTML = photos;

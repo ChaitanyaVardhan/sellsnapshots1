@@ -63,7 +63,7 @@
         <div id="photos">
         {% for photo in photos %}
             <div class="photo">
-                <img id="" src="{{ photo.photo_url }}"></img>
+                <img class="contained_img" id="" src="{{ photo.photo_url }}"></img>
                 <input type="hidden" class="img_idx" value="">
             </div>
         {% endfor %}
