@@ -5,7 +5,8 @@ var img_idx = [];
 
 function fillInputTagValue(name) {
     var img_node = document.getElementById(name);
-    window.img_arr = img_node.getElementsByTagName('IMG');
+//    window.img_arr = img_node.getElementsByTagName('IMG');
+    window.img_arr = img_node.getElementsByClassName('contained_img');
     window.img_idx = img_node.getElementsByTagName('INPUT');
 
     for (var i=0; i<img_arr.length; i++) {
