@@ -62,11 +62,9 @@ window.addEventListener("scroll", function() {
 }, false);
 
 $("#photodiv").on('click', '.option_dots', function() {
-    var menu_html = document.getElementById("photoMenuHtml").innerHTML;
-    document.getElementById("photoMenuContainer").innerHTML = menu_html;
-    docuemnt.getElementById("photoMenuDiv").style.display = 'block';
+    console.log('clicked');
+    var menu_div = document.getElementById("photoMenuDiv");
+    var menu_html = '<div id="photo_menu_container"><div id="o_container"><p>delete image</p></div></div>'
+    menu_div.innerHTML = menu_html;
+    document.getElementById("photoMenuDiv").style.display = 'block';
 })
-//      <div id="photoMenuDiv">
-//	<div id="photo_menu_container">
-//	</div>
-//      </div>

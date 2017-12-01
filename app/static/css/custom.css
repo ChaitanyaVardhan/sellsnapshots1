@@ -421,9 +421,10 @@ form input.text {
     top: 5px;
     right: 5px;
     z-index: 99
+    display: none;
 }
 
-photo_menu_container {
+#photo_menu_container {
     height: 50px;
     box-shadow: 0px 5px 20px 0px rgba(128, 128, 128, 0.5)
 }

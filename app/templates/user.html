@@ -32,6 +32,8 @@ onLoad="fillInputTagValue('photos')"
       <img class="contained_img" id="" src="{{ photo.photo_url }}"></img>
       <img class="option_dots" src="https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/dots_upright.png"></img>        
       <input type="hidden" class="img_idx" value="">
+      <div id="photoMenuDiv">
+      </div>
     </div>
     {% endfor %}
   </div>
@@ -42,10 +44,6 @@ onLoad="fillInputTagValue('photos')"
     {% include 'image_modal.html' %}
 </div>
 
-<!-- photo options menu overlay-->
-<div id="photoMenuHtml">
-  {% include 'photo_option_menu.html' %}
-</div>
 {% endblock %}
 
 {% block scripts %}
