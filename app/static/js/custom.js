@@ -63,8 +63,5 @@ window.addEventListener("scroll", function() {
 
 $("#photodiv").on('click', '.option_dots', function() {
     console.log('clicked');
-    var menu_div = document.getElementById("photoMenuDiv");
-    var menu_html = '<div id="photo_menu_container"><div id="o_container"><p>delete image</p></div></div>'
-    menu_div.innerHTML = menu_html;
     document.getElementById("photoMenuDiv").style.display = 'block';
 })
