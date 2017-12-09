@@ -81,7 +81,7 @@ function showImage(e) {
 
 $('#featured').on('click', '.photo', showImage)
 
-$('#photodiv').on('click', '.photo', showImage)
+$('#photodiv').on('click', '.photo .contained_img', showImage)
 
 function hideImage(e) {
 	hideObj('imageDIV');

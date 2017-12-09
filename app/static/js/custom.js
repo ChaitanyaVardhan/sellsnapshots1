@@ -61,7 +61,7 @@ window.addEventListener("scroll", function() {
   if (document.getElementById("menuDIV").style.display == "block") hideMenu();
 }, false);
 
-$("#photodiv").on('click', '.option_dots', function() {
+$("#photodiv").on('click', '.photo .option_dots', function() {
     console.log('clicked');
-    document.getElementById("photoMenuDiv").style.display = 'block';
+    showObj('photoMenuDiv');
 })
