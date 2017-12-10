@@ -437,6 +437,14 @@ def contact_photographer():
 
     return redirect(url_for('user', name=pg_name))
 
+@app.route('/mlabdelete')
+def delete_mlab():
+    image_id = request.args.get('image_id')
+    logging.info('view for delete triggered')
+    logging.info('image id is ' + str(image_id))
+    name = current_user.firstname + current_user.lastname
+    return redirect(url_for('user', name=name))
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html'), 404

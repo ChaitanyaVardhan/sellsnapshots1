@@ -62,6 +62,5 @@ window.addEventListener("scroll", function() {
 }, false);
 
 $("#photodiv").on('click', '.photo .option_dots', function() {
-    console.log('clicked');
-    showObj('photoMenuDiv');
+    showObj('photoMenuDIV');
 })
