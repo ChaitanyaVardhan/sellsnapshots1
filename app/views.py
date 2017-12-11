@@ -442,8 +442,9 @@ def delete_mlab():
     image_id = request.args.get('image_id')
     logging.info('view for delete triggered')
     logging.info('image id is ' + str(image_id))
-    name = current_user.firstname + current_user.lastname
-    return redirect(url_for('user', name=name))
+    #name = current_user.firstname + current_user.lastname
+    #return redirect(url_for('user', name=name))
+    return json.dumps({'message': "deleted 1234"})
 
 @app.errorhandler(404)
 def not_found(e):

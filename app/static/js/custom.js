@@ -64,3 +64,15 @@ window.addEventListener("scroll", function() {
 $("#photodiv").on('click', '.photo .option_dots', function() {
     showObj('photoMenuDIV');
 })
+
+//delete photo ajax call
+function deletePhoto() {
+    console.log('clicked on delete photo');
+    $.ajax('/mlabdelete?image_id=1234').done(function(response){
+      console.log(response);
+      console.log('message from server is ' + response["message"]);
+    });
+}
+
+//event handler for click on the delete photo option
+$('#photoMenuDIV').on('click', '#delete_photo_option', deletePhoto)
