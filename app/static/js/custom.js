@@ -61,16 +61,32 @@ window.addEventListener("scroll", function() {
   if (document.getElementById("menuDIV").style.display == "block") hideMenu();
 }, false);
 
-$("#photodiv").on('click', '.photo .option_dots', function() {
+//function to display photo menu div
+function showPhotoMenu(e) {
+    var t = e.target;
+    while (t.className != 'photo') { t = t.parentNode }
+    var imgNode = document.getElementsByTagName('IMG')[0];
+    var src = imgNode.getAttribute('src');
+
     showObj('photoMenuDIV');
-})
+}
+
+//event handler that displays the photo menu div when option dots are clicked
+$("#photodiv").on('click', '.photo .option_dots', showPhotoMenu);
+
 
 //delete photo ajax call
 function deletePhoto() {
     console.log('clicked on delete photo');
-    $.ajax('/mlabdelete?image_id=1234').done(function(response){
+    var data = {};
+    data['image_id'] = document.getElementById('delete_file_name').getAttribute('value');
+    $.ajax({
+      url: '/mlabdelete',
+      data: data,
+      dataType: 'json'
+    })
+    .done(function(response){
       console.log(response);
-      console.log('message from server is ' + response["message"]);
     });
 }
 
