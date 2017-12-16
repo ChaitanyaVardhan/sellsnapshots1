@@ -65,8 +65,13 @@ window.addEventListener("scroll", function() {
 function showPhotoMenu(e) {
     var t = e.target;
     while (t.className != 'photo') { t = t.parentNode }
-    var imgNode = document.getElementsByTagName('IMG')[0];
+    var imgNode = t.getElementsByTagName('IMG')[0];
     var src = imgNode.getAttribute('src');
+
+    var $photoMenu = document.getElementById('photoMenuDIV');
+    var $input = $photoMenu.getElementsByTagName('INPUT')[0];
+
+    $input.setAttribute('value', src);
 
     showObj('photoMenuDIV');
 }
@@ -77,7 +82,6 @@ $("#photodiv").on('click', '.photo .option_dots', showPhotoMenu);
 
 //delete photo ajax call
 function deletePhoto() {
-    console.log('clicked on delete photo');
     var data = {};
     data['image_id'] = document.getElementById('delete_file_name').getAttribute('value');
     $.ajax({
