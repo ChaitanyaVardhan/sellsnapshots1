@@ -15,7 +15,9 @@ from .forms import ChangePasswordForm, PasswordResetRequestForm, PasswordResetFo
 
 from oauth import OAuthSignIn
 
-from mlab import read_from_mlab, update_to_mlab
+from mlab import read_from_mlab, update_to_mlab, delete_from_mlab
+
+from aws import delete_from_s3
 
 import json
 
@@ -437,14 +439,19 @@ def contact_photographer():
 
     return redirect(url_for('user', name=pg_name))
 
-@app.route('/mlabdelete')
-def delete_mlab():
-    image_id = request.args.get('image_id')
-    logging.info('view for delete triggered')
-    logging.info('image id is ' + str(image_id))
-    #name = current_user.firstname + current_user.lastname
-    #return redirect(url_for('user', name=name))
-    return json.dumps({'message': "deleted 1234"})
+@app.route('/deletephoto')
+def delete_photo():
+    image_name = request.args.get('imageName')
+
+    delete_status_code_s3 = delete_from_s3(image_name)
+
+    if delete_status_code_s3 == 200 or 204:
+        delete_status_code_mlab = delete_from_mlab(coll='user-data', del_key = image_name)
+        if delete_status_code_mlab == 200:
+            CACHE[(current_user.user_url, 'photo')], status_code_read_mlab = read_from_mlab(coll='user-data', email=current_user.email, doctype='photo')
+            return json.dumps({'status_code': 200})
+
+    return json.dumps({'status_code': -1})
 
 @app.errorhandler(404)
 def not_found(e):

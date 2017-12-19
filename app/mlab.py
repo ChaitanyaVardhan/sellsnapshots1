@@ -41,3 +41,8 @@ def update_to_mlab(coll=None, data=None, **kwargs):
     response = requests.post(url, data=data, headers=headers)
 
     return response.status_code
+
+def delete_from_mlab(coll=None, **kwargs):
+    logging.info('delete from mlab triggered')
+    logging.info('coll = {} del_key = {}'.format(coll, kwargs['del_key']))
+    return -1

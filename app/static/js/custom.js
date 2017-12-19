@@ -67,11 +67,13 @@ function showPhotoMenu(e) {
     while (t.className != 'photo') { t = t.parentNode }
     var imgNode = t.getElementsByTagName('IMG')[0];
     var src = imgNode.getAttribute('src');
+    src = src.split('/');
+    var imageName = src[src.length -1];
 
     var $photoMenu = document.getElementById('photoMenuDIV');
     var $input = $photoMenu.getElementsByTagName('INPUT')[0];
 
-    $input.setAttribute('value', src);
+    $input.setAttribute('value', imageName);
 
     showObj('photoMenuDIV');
 }
@@ -83,9 +85,9 @@ $("#photodiv").on('click', '.photo .option_dots', showPhotoMenu);
 //delete photo ajax call
 function deletePhoto() {
     var data = {};
-    data['image_id'] = document.getElementById('delete_file_name').getAttribute('value');
+    data['imageName'] = document.getElementById('delete_file_name').getAttribute('value');
     $.ajax({
-      url: '/mlabdelete',
+      url: '/deletephoto',
       data: data,
       dataType: 'json'
     })
