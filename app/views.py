@@ -277,6 +277,7 @@ def user(name):
             raise NotFound()
 
     if not current_user.is_anonymous:
+        logging.info('total objects for {}:{}'.format(current_user.user_url, len(CACHE[(current_user.user_url, 'photo')])))
         return render_template("user.html", photos=user_data)
     else:
         return render_template("user_front_page.html", photos=user_data, username=name_lower)
@@ -448,8 +449,9 @@ def delete_photo():
     if delete_status_code_s3 == 200 or 204:
         delete_status_code_mlab = delete_from_mlab(coll='user-data', del_key = image_name)
         if delete_status_code_mlab == 200:
-            CACHE[(current_user.user_url, 'photo')], status_code_read_mlab = read_from_mlab(coll='user-data', email=current_user.email, doctype='photo')
-            return json.dumps({'status_code': 200})
+            CACHE[(current_user.user_url, 'photo')], status_code_read_mlab = read_from_mlab(coll='user-data', email=current_user.email, doc_type='photo')
+            logging.info('total objects for {}:{}'.format(current_user.user_url, len(CACHE[(current_user.user_url, 'photo')])))
+            return json.dumps({'status_code': status_code_read_mlab})
 
     return json.dumps({'status_code': -1})
 

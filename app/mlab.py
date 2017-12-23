@@ -2,6 +2,7 @@ import requests
 import json
 import logging
 import sys
+from flask_login import current_user
 
 from config import MLAB_API_KEY
 from config import MLAB_DB_BASE_URL
@@ -45,4 +46,13 @@ def update_to_mlab(coll=None, data=None, **kwargs):
 def delete_from_mlab(coll=None, **kwargs):
     logging.info('delete from mlab triggered')
     logging.info('coll = {} del_key = {}'.format(coll, kwargs['del_key']))
+    photo_url = 'https://s3.amazonaws.com/sellsnapshots-users/{}/{}'.format(current_user.user_url, kwargs['del_key'])
+    logging.info('photo_url: {}'.format(photo_url))
+    search_results, status_code = read_from_mlab(coll=coll, email=current_user.email, doc_type='photo', photo_url=photo_url)
+    if len(search_results) == 1:
+        id = search_results[0]["_id"]["$oid"]
+        url = 'https://api.mlab.com/api/1/databases/sellsnapshots-prod/collections/{}/{}?apiKey={}'.format(coll, id, api_key)
+        logging.info('delete url is {}'.format(url))
+        response = requests.delete(url)
+        return response.status_code
     return -1

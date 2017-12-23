@@ -1,4 +1,4 @@
-from requests import request
+import requests
 from flask import current_app
 from flask_login import current_user
 import boto3
@@ -24,6 +24,7 @@ def delete_from_s3(image_name):
     logging.info('in delete_from_s3')
     presigned_url = get_presigned_url(image_name)
     logging.info('presigned url is {}'.format(presigned_url))
-#    r = request.delete(presigned_url)
-#    return r.status_code
-    return 200
+    r = requests.delete(presigned_url)
+    logging.info('delete status code: {}'.format(r.status_code))
+    return r.status_code
+
