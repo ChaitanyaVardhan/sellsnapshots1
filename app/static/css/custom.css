@@ -443,7 +443,42 @@ form input.text {
     width: 40%;
     position: absolute;
     margin: auto;
+    text-align: center;
     top: 0; left: 0; bottom: 0; right: 0;
+}
+
+#o_container p {
+    border-bottom: 1px solid #000000;
+    width: 85%;
+    height: 50px;
+    font-size: 1.5em;
+    margin: 10px auto;
+    line-height: 2;
+}
+
+#o_container a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#user_profile_header {
+    position: absolute;
+    left: 10%;
+}
+
+.user_button_nav {
+    height: 50px;
+}
+
+#user_button_nav_inner {
+    position: absolute;
+    left: 10%;
+}
+
+#user_button {
+    padding: 10px 20px;
+    color: #000000;
+    background: #32CD32;
 }
 
 #photo_menu_close {
@@ -496,6 +531,9 @@ form input.text {
     #modal_container {
         width:95%;
         height: 95%;
+    }
+    #o_container p {
+      height: 30px;
     }
 }
 

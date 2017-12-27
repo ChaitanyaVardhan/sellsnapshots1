@@ -17,13 +17,28 @@ onLoad="fillInputTagValue('photos')"
 {% endblock %}
 
 {% block page_content %}
-<div class="page-header">
-	<div class="profile-header">
-		<h1>{{ current_user.firstname }} {{ current_user.lastname }}</h1>
+    <div class="page-header">
+      <div class="profile-header">
+	  <h1>
+	    {{ current_user.firstname }} {{ current_user.lastname }}
+	  </h1>
+      </div>
+      <div class="user_button_nav">
+	<div id="user_button_nav_inner">
+	  <a href="{{ url_for('upload_photos') }}">
+	    <span class="button" id="user_button">
+	      Upload Photos
+	    </span>
+	  </a>
+	  <span class="linkspace"></span>
+	  <a href="{{ url_for('edit_prod_loc') }}">
+	    <span class="button" id="user_button">
+	      Update Products and Location
+	    </span>
+	  </a>
 	</div>
-        <a href="{{ url_for('upload_photos') }}"><div class="button">Upload Photos</div><span class="linkspace"></span></a>
-        <a href="{{ url_for('edit_prod_loc') }}"><div class="button">Update Products and Location</div></a>
-</div>
+      </div>
+    </div>
 
 <div id="photodiv">
   <div id="photos">
