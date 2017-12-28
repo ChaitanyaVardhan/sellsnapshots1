@@ -49,15 +49,17 @@
     <iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
 
 <!-- profile nav -->
-    <div id="profile_nav_wrapper">
-      <div id="tabs_wrapper">
-        <ul id="profile_nav">
-          <li id="profile_photos"><a href="{{ url_for('user', name=username) }}">photos</a></li>
-          <li id="profile_services"><a href="{{ url_for('user_services', name=username) }}">services</a></li>
-        </ul>
-        <a href="javascript:showObj('contact_modal')"><div id="contact_button" class="button">Contact</div></a>
-      </div>
-    </div>
+<div id="profile_nav_wrapper">
+  <div id="tabs_wrapper">
+    <ul id="profile_nav">
+      <span id="profile_nav_links">
+        <li id="profile_photos"><a href="{{ url_for('user', name=username) }}">photos</a></li>
+        <li id="profile_services"><a href="{{ url_for('user_services', name=username) }}">services</a></li>
+      </span>
+      <li><a href="javascript:showObj('contact_modal')"><span id="contact_button_front_page" class="button">Contact</span></a></li>
+    </ul>
+  </div>
+</div>
 
     <div id="photodiv">
         <div id="photos">

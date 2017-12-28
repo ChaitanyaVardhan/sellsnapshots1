@@ -348,6 +348,24 @@ form input.text {
     text-align: center;
     white-space: nowrap;
     overflow-x : auto;
+    padding: 10px 0;
+}
+
+#profile_nav_links {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+#contact_button_front_page {
+    position: absolute;
+    background: #32CD32;
+    right: 2%;
+    line-height: initial;
+}
+
+#contact_button_front_page:hover {
+    background: #32AA32;
 }
 
 #profile_nav li {
