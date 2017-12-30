@@ -11,7 +11,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 def get_presigned_url(image_name):
     s3 = boto3.client('s3')
     presigned_url = s3.generate_presigned_url(
-        ClientMethod = 'get_object',
+        ClientMethod = 'delete_object',
         Params = {
             'Bucket': current_app.config['S3_BUCKET'],
             'Key':current_user.user_url + '/' + image_name
