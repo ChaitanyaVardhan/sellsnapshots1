@@ -382,37 +382,15 @@ def upload_mlab():
 def edit_prod_loc():
     form = EditProdAndLocForm()
 
+    prods = [form.product_name1.data, form.product_name2.data, form.product_name3.data, form.product_name4.data, form.product_name5.data]
+    prices = [form.price1.data, form.price2.data, form.price3.data, form.price4.data, form.price5.data]
+
     if form.validate_on_submit():
         data = [dict(
           email=current_user.email,
           doc_type='product',
-          prod=form.product_name1.data,
-          price=form.price1.data),
-          dict(
-          email=current_user.email,
-          doc_type='product',
-          prod=form.product_name2.data,
-          price2=form.price2.data),
-          dict(
-          email=current_user.email,
-          doc_type='product',
-          prod=form.product_name3.data,
-          price=form.price3.data),
-          dict(
-          email=current_user.email,
-          doc_type='product',
-          prod=form.product_name4.data,
-          price=form.price4.data),
-          dict(
-          email=current_user.email,
-          doc_type='product',
-          prod=form.product_name5.data,
-          price=form.price5.data),
-          dict(
-          email=current_user.email,
-          doc_type='location',
-          location=form.location.data)
-        ]
+          prod=prods[i],
+          price=prices[i]) for i in range(5) if prods[i] != '']
         status_code_write = update_to_mlab(coll='user-data', data=data)
         logging.info('status_code_write: ' + str(status_code_write))
 
