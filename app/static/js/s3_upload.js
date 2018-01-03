@@ -86,11 +86,17 @@ var files = [];
 /* get the list of selected file */
 
 $('#file-input').on('change', function() {
-    files = document.getElementById('file-input').files;
-    
-    for (var i=0; i<files.length; i++) {
+    var input_files = document.getElementById('file-input').files;
 
-        f = files[i];
+/* append to the global array files. This ensures that the user can select images in multiple attempts */
+
+    for (var i=0; i<input_files.length; i++) {
+        files.push(input_files[i]);
+    }
+    
+    for (var i=0; i<input_files.length; i++) {
+
+        f = input_files[i];
 
         //only process image files.
         if (!f.type.match('image.*')) {
