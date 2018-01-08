@@ -1,30 +1,80 @@
-<head>
-  <style rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}"></style>
-  <style rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}"></style>
-  <style rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}"></style>
-  <style rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></style>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous">
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="Author" content="Sell Snap Shots">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="A platform for professional photographers. Create your portfolio page, offer photography services and get contacted by people looking for photography services.">
+
+    <title>sellsnapshots :: services</title>
+
+    <link rel="icon" type="image/png" href="https://s3.ap-south-1.amazonaws.com/sellsnapshots/assets/favicon.png">
+    <!-- icon from iconfinder.com by Xinh Studio -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/text.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/image.css') }}">	
+    <style>
+      #service_div {
+        margin: 80px auto 30px auto;
+        padding: 1% 10%;
+        max-width: 960px;
+      }
+
+      body {
+        background-color: #f8f8f8;
+      }
+
+      .card {
+        height: 100px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #FFFFFF;
+        padding: 1%;
+        margin: 10px auto;
+      }
+    </style>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+	    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	    crossorigin="anonymous">
     </script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-</head>
 
-<body>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
-<div id="content">
-  <iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
+    <script type="text/javascript">
 
-  <div id="accordion" role="tablist">
-    {% for obj in data %}
-      <div class="card">
-        <div class="card-header" role="tab" id="headingOne">
-          <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <p>{{ obj.prod }} {{ obj.price }}</p>
-          </a>
-        </div>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-89573302-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+  </head>
+
+  <body>
+
+    <div id="content">
+      <iframe id="header" class="frame" src="{{ url_for('header') }}"></iframe>
+
+      <div id="service_div">
+	{% for obj in data %}
+	<div class="card">
+          <div class="card-header" role="tab" id="headingOne">
+            <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <p>{{ obj.prod }} {{ obj.price }}</p>
+            </a>
+          </div>
+	</div>
+	{% endfor %}
       </div>
-    {% endfor %}
-  </div>
-</div>
+    </div>
 
-</body>
+  </body>
+</html>
