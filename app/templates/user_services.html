@@ -33,6 +33,26 @@
         padding: 1%;
         margin: 10px auto;
       }
+
+      .service_name {
+        font-size: 1.2em;
+        margin: 5px;
+      }
+
+      .service_price {
+        font-size: 0.7em;
+        margin: 5px;
+      }
+
+      .service_blurb {
+        font-size: 0.5em;
+        marign: 3px;
+      }      
+
+      #service_div p {
+        margin: 0 auto;
+        width: 90%;
+      }
     </style>
 
 
@@ -66,10 +86,14 @@
       <div id="service_div">
 	{% for obj in data %}
 	<div class="card">
-          <div class="card-header" role="tab" id="headingOne">
-            <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <p>{{ obj.prod }} {{ obj.price }}</p>
-            </a>
+          <div>
+            <span class="service_name">{{ obj.prod }}</span>
+          </div>
+          <div>
+            <span class="service_price">{{ obj.price }}</span>
+          </div>
+          <div>
+            <p class="service_blurb">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et do</p>
           </div>
 	</div>
 	{% endfor %}
