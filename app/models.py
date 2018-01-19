@@ -16,6 +16,7 @@ class User(UserMixin, db.Model):
 	confirmed = db.Column(db.Boolean, default=False)
 	social_id = db.Column(db.String(64), index=True, unique=True)
 	social_name = db.Column(db.String(64))
+        user_url = db.Column(db.String(64))
 
 	@property 
 	def password(self):
@@ -83,6 +84,9 @@ class User(UserMixin, db.Model):
 		db.session.add(self)
 		db.session.commit()
 		return True	
+
+        def create_user_url(self):
+            self.user_url = self.firstname.lower() + self.lastname.lower()                        
 		
 	def __repr__(self):
 		return '<User %r>' % (self.email)

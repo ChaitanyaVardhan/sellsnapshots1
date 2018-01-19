@@ -3,19 +3,32 @@ from flask import Flask, render_template, redirect, url_for, request,\
 
 from flask_login import login_user, logout_user, login_required, current_user
 
+from werkzeug.exceptions import HTTPException, NotFound
+
 from app import app, db
 
 from .models import User
 
 from .emails import send_email
 
-from .forms import ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
+from .forms import ChangePasswordForm, PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm, EditProdAndLocForm
 
 from oauth import OAuthSignIn
 
-from mlab import read_from_mlab
+from mlab import read_from_mlab, update_to_mlab, delete_from_mlab
+
+from aws import delete_from_s3
 
 import json
+
+import logging
+
+import sys
+
+import boto3
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 CACHE = {}
 
@@ -62,6 +75,7 @@ def register():
 	if user is None:
 		user = User(firstname = first_name, lastname = last_name, city = city, country = country, email = email\
 			,password=password)
+                user.create_user_url()
 		db.session.add(user)
 		db.session.commit()
 		token = user.generate_confirmation_token()
@@ -111,13 +125,14 @@ def login():
 	email = request.form['email']
 	password = request.form['password']
 	user = User.query.filter_by(email=email).first()
-	next = request.form['next']
+        next = request.form.get('next')
 	if user is not None and user.verify_password(password):
-		login_user(user)
-		if next:
-			return redirect(next)
-		else:
-			return redirect(url_for('user'))
+	    login_user(user)
+    	    if next != 'None':
+	        return redirect(next)
+	    else:
+                name = current_user.firstname + current_user.lastname
+	        return redirect(url_for('user', name=name))
 	flash('Invalid username or password')
 	return render_template('login.html',next=next)
 
@@ -240,10 +255,48 @@ def oauth_callback(provider):
     login_user(user, True)
     return redirect(url_for('index'))
 
-@app.route('/user')
-@login_required
-def user():
-	return render_template('user.html')
+@app.route('/<name>')
+def user(name):
+    name_lower = name.lower()
+    key = (name_lower, 'photo')
+    if key in CACHE:
+        user_data = CACHE[key]
+    else:
+        if not current_user.is_anonymous:
+            user = current_user
+        else:
+            user = User.query.filter_by(user_url=name_lower).first()        
+        if user is not None:
+            key = user.user_url
+            user_email = user.email
+            user_data, status_code = read_from_mlab(coll='user-data', email=user_email, doc_type='photo')    
+            key = (key,'photo')
+            CACHE[key] = user_data
+            CACHE[(user.user_url, 'user')] = dict(email=user.email, user_url=user.user_url, firstname=user.firstname, lastname=user.lastname)
+        else:
+            raise NotFound()
+
+    if not current_user.is_anonymous:
+        return render_template("user.html", photos=user_data)
+    else:
+        return render_template("user_front_page.html", photos=user_data, username=name_lower)
+
+@app.route('/<name>/services')
+def user_services(name):
+    name_lower = name.lower()
+    key = (name_lower, 'product')
+    if key in CACHE:
+        data = CACHE[key]
+    else:
+        user = User.query.filter_by(user_url=name_lower).first()
+        if user is not None:
+            data, status_code = read_from_mlab(coll='user-data', email=user.email, doc_type='product')
+            key = (user.user_url, 'product')
+            CACHE[key] = data
+        else:
+            raise NotFound()
+    
+    return render_template("user_services.html", data=data)
 
 @app.route('/secret')
 @login_required
@@ -256,13 +309,131 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
+@app.route('/upload')
+@login_required
+def upload_photos():
+    return render_template("upload_photos.html")
+
 @app.route('/api/v1/photos')
 def api_v1_photos():
     key = 'FRONT'
     if key in CACHE:
         images = CACHE[key]
     else:
-        images, status_code = read_from_mlab()
+        images, status_code = read_from_mlab(coll='photos')
         CACHE[key] = images
 
     return json.dumps(images)
+
+@app.route('/s3uploadtoken')
+def s3_upload_token():
+    if current_user.is_anonymous:
+        return redirect(url_for('index'))
+    S3_BUCKET = app.config['S3_BUCKET']
+    file_name = request.args.get('filename')
+    file_type = request.args.get('filetype')
+
+    s3 = boto3.client('s3')
+
+    presigned_post = s3.generate_presigned_post(
+        Bucket = S3_BUCKET,
+        Key = current_user.user_url + '/' + file_name,
+        Fields = {"acl": "public-read", "Content-Type": file_type},
+        Conditions = [
+          {"acl": "public-read"},
+          {"Content-Type": file_type}
+        ],
+        ExpiresIn = 3600
+    )
+
+    logging.info('filename: ' + file_name)
+    logging.info('filetype: ' + file_type)
+
+    return json.dumps({
+        'data': presigned_post,
+        'url': 'https://s3.amazonaws.com/%s/%s/%s' % (S3_BUCKET, current_user.user_url, file_name)
+    })
+
+@app.route('/mlabupload')
+def upload_mlab():
+    if current_user.is_anonymous:
+        return redirect(url_for('index'))
+    S3_BUCKET = app.config['S3_BUCKET']
+    file_name = request.args.get('filename')
+
+    logging.info('triggered mlab upload')
+    logging.info('filename: ' + file_name)
+
+    data = {}
+    data['email'] = current_user.email
+    data['doc_type'] = 'photo'
+    data['photo_url'] = 'https://s3.amazonaws.com/%s/%s/%s' % (S3_BUCKET, current_user.user_url, file_name)
+
+    status_code_write = update_to_mlab(coll='user-data', data=data)
+    logging.info('status_code_write: ' + str(status_code_write))
+
+    if status_code_write == 200:
+        CACHE[(current_user.user_url,'photo')], status_code_read = read_from_mlab(coll='user-data', email=current_user.email, doc_type='photo')
+
+    return json.dumps({'status_code': status_code_write})
+
+@app.route('/edit-prod-loc', methods=['GET', 'POST'])
+@login_required
+def edit_prod_loc():
+    form = EditProdAndLocForm()
+
+    prods = [form.product_name1.data, form.product_name2.data, form.product_name3.data, form.product_name4.data, form.product_name5.data]
+    prices = [form.price1.data, form.price2.data, form.price3.data, form.price4.data, form.price5.data]
+
+    if form.validate_on_submit():
+        data = [dict(
+          email=current_user.email,
+          doc_type='product',
+          prod=prods[i],
+          price=prices[i]) for i in range(5) if prods[i] != '']
+        status_code_write = update_to_mlab(coll='user-data', data=data)
+        logging.info('status_code_write: ' + str(status_code_write))
+
+        if status_code_write == 200:
+            CACHE[(current_user.user_url,'product')], status_code_read = read_from_mlab(coll='user-data', email=current_user.email, doc_type='product')
+
+        name = current_user.firstname + current_user.lastname
+        return redirect(url_for('user', name=name))
+
+    return render_template('edit_prod.html', form=form)
+
+@app.route('/contact_pg', methods=['POST'])
+def contact_photographer():
+    name = request.form['name']
+    mobile_no = request.form['mobile_no']
+    email = request.form['email']
+    requirements = request.form['requirements']
+    pg_name = request.form['pg_name']
+    user = CACHE[(pg_name, 'user')]
+    
+    cust_data = dict(name=name, mobile_no=mobile_no, email=email, requirements=requirements)
+
+    send_email(user['email'], 'Message from a potential customer', 'contact_pg_email', user=user, cust_data=cust_data)
+
+    return redirect(url_for('user', name=pg_name))
+
+@app.route('/deletephoto')
+def delete_photo():
+    image_name = request.args.get('imageName')
+
+    delete_status_code_s3 = delete_from_s3(image_name)
+
+    if delete_status_code_s3 == 200 or 204:
+        delete_status_code_mlab = delete_from_mlab(coll='user-data', del_key = image_name)
+        if delete_status_code_mlab == 200:
+            CACHE[(current_user.user_url, 'photo')], status_code_read_mlab = read_from_mlab(coll='user-data', email=current_user.email, doc_type='photo')
+            return json.dumps({'status_code': status_code_read_mlab})
+
+    return json.dumps({'status_code': -1})
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html'), 404
+
+
+        
