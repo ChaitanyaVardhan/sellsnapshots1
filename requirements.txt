@@ -18,7 +18,7 @@ packaging==16.8
 pbr==1.10.0
 pyparsing==2.2.0
 rauth==0.7.3
-requests==2.14.2
+requests==2.20.0
 six==1.10.0
 SQLAlchemy==1.1.4
 sqlalchemy-migrate==0.10.0
